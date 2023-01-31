@@ -1,5 +1,3 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -8,7 +6,7 @@ const isProduction = process.env.NODE_ENV == "production";
 const stylesHandler = "style-loader";
 
 const config = {
-  devtool: 'source-map',
+  devtool: "source-map",
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -27,7 +25,7 @@ const config = {
       {
         test: /\.(ts|tsx)$/i,
         exclude: ["/node_modules/"],
-        use: "ts-loader"
+        use: "ts-loader",
       },
       {
         test: /\.s[ac]ss$/i,
