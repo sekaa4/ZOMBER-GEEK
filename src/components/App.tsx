@@ -1,12 +1,7 @@
-import photo from "../assets/phone.png";
+import Welcome from "../pages/Welcome";
 
 function App() {
-  return (
-    <>
-      <h1>Hello world</h1>;
-      <img src={photo} alt="some" />
-    </>
-  );
+  return <Welcome />;
 }
 
 export default App;
