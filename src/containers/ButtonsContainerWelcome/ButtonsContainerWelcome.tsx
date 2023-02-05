@@ -2,7 +2,7 @@ import { FC } from "react";
 import Button from "../../components/button/Button";
 import classes from "./ButtonsContainer.module.scss";
 
-const ButtonsContainer: FC = () => {
+const ButtonsContainerWelcome: FC = () => {
   return (
     <div className={classes.buttons}>
       <Button title="ENTER" />
@@ -11,4 +11,4 @@ const ButtonsContainer: FC = () => {
   );
 };
 
-export default ButtonsContainer;
+export default ButtonsContainerWelcome;
