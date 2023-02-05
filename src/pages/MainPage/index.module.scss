@@ -2,7 +2,7 @@
 
 .welcome {
   position: relative;
-  max-width: $content-width;
+  max-width: var(--content-width);
   margin: 0 auto;
   display: flex;
   justify-content: space-evenly;
