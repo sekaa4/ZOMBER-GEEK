@@ -1,3 +1,4 @@
+import { FC } from "react";
 import ConstantsString from "../../models/ConstantsString";
 import classes from "./Button.module.scss";
 
@@ -5,12 +6,14 @@ interface ButtonProps {
   title?: string;
 }
 
-export default function Button({
+const Button: FC<ButtonProps> = ({
   title = ConstantsString.BUTTON,
-}: ButtonProps): JSX.Element {
+}) => {
   return (
     <button type="button" className={classes.button}>
       {title}
     </button>
   );
 }
+
+export default Button;

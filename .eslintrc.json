@@ -53,6 +53,21 @@
     "react/no-unescaped-entities": [
       "off"
     ],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": [
+          "function-declaration",
+          "function-expression",
+          "arrow-function"
+        ],
+        "unnamedComponents": [
+          "function-declaration",
+          "function-expression",
+          "arrow-function"
+        ]
+      }
+    ],
     "react/prop-types": "off",
     "react/require-default-props": "off"
   }
