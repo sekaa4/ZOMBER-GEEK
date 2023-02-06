@@ -1,6 +1,6 @@
 import { FC } from "react";
 import SimpleText from "../../components/simple-text/SimpleText";
-import ButtonsContainer from "../../containers/ButtonsContainer/ButtonsContainer";
+import ButtonsContainer from "../../containers/ButtonsContainerWelcome/ButtonsContainerWelcome";
 import WelcomePage from "../../models/WelcomePage";
 import classes from "./index.module.scss";
 
