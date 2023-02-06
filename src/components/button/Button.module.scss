@@ -1,0 +1,29 @@
+@import "../../assets/styles/styles.scss";
+
+.button {
+  @extend %font-prim;
+  padding: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1rem;
+  height: 5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  background: $color-border;
+  border: 1px solid $color-border;
+  color: $color-text;
+
+  &:hover {
+    background: $color-hovered;
+    border-color: $color-hovered;
+  }
+
+  &:disabled {
+    background: $color-hovered;
+    border-color: $color-hovered;
+    cursor: default;
+  }
+}
