@@ -3,6 +3,7 @@ import ConstantsString from "../models/ConstantsString";
 import fieldReducer from './reducers/FieldSlice';
 
 const rootReducer = combineReducers({
+fieldReducer,
 })
 
 export const setupStore = () => {
