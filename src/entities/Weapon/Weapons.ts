@@ -8,25 +8,25 @@ const mochaWeapons: IWeapons = {
   handguns: 0,
   assaultRifles: 0,
   shotguns: 0,
-  RPG: 0,
+  BFG: 0,
 };
 
 export default class Weapons {
-  grenades: number;
+  grenades?: number;
 
-  knifes: number;
+  knifes?: number;
 
-  crossbows: number;
+  crossbows?: number;
 
-  axes: number;
+  axes?: number;
 
-  handguns: number;
+  handguns?: number;
 
-  assaultRifles: number;
+  assaultRifles?: number;
 
-  shotguns: number;
+  shotguns?: number;
 
-  RPG: number;
+  BFG?: number;
 
   constructor({
     grenades,
@@ -36,15 +36,15 @@ export default class Weapons {
     handguns,
     assaultRifles,
     shotguns,
-    RPG,
+    BFG,
   }: IWeapons = mochaWeapons) {
-    this.grenades = grenades;
-    this.knifes = knifes;
-    this.crossbows = crossbows;
-    this.axes = axes;
-    this.handguns = handguns;
-    this.assaultRifles = assaultRifles;
-    this.shotguns = shotguns;
-    this.RPG = RPG;
+    this.grenades = grenades ?? mochaWeapons.grenades;
+    this.knifes = knifes ?? mochaWeapons.knifes;
+    this.crossbows = crossbows ?? mochaWeapons.crossbows;
+    this.axes = axes ?? mochaWeapons.axes;
+    this.handguns = handguns ?? mochaWeapons.handguns;
+    this.assaultRifles = assaultRifles ?? mochaWeapons.handguns;
+    this.shotguns = shotguns ?? mochaWeapons.shotguns;
+    this.BFG = BFG ?? mochaWeapons.shotguns;
   }
 }
