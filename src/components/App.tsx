@@ -2,8 +2,8 @@
 
 import Main from "../pages/MainPage";
 
-function App() {
+const App = () => {
   return <Main />;
-}
+};
 
 export default App;
