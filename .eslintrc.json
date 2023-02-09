@@ -54,18 +54,10 @@
       "off"
     ],
     "react/function-component-definition": [
-      "error",
+      2,
       {
-        "namedComponents": [
-          "function-declaration",
-          "function-expression",
-          "arrow-function"
-        ],
-        "unnamedComponents": [
-          "function-declaration",
-          "function-expression",
-          "arrow-function"
-        ]
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
       }
     ],
     "react/prop-types": "off",
