@@ -7,6 +7,7 @@ import Character from "./AbstractCharacter";
 
 export default class CharacterWithHeal extends Character {
   static instance: CharacterWithHeal;
+
   weapons: IWeapons | undefined;
 
   items: IItems | undefined;
@@ -15,16 +16,18 @@ export default class CharacterWithHeal extends Character {
 
   currentPositionId: null | undefined | number;
 
-  constructor(
-    health?: number,
-    items?: IItems,
-    weapons?: IWeapons,
-  ) {
-    if (CharacterWithHeal.instance && CharacterWithHeal.instance instanceof CharacterWithHeal) {
+  constructor(health?: number, items?: IItems, weapons?: IWeapons) {
+    if (
+      CharacterWithHeal.instance &&
+      CharacterWithHeal.instance instanceof CharacterWithHeal
+    ) {
       return CharacterWithHeal.instance;
     }
 
-    super(CharacterProps.CharacterNameWithHeal, health = CharacterProps.CharacterDefaultHP);
+    super(
+      CharacterProps.CharacterNameWithHeal,
+      (health = CharacterProps.CharacterDefaultHP),
+    );
     this.weapons = new Weapons(weapons);
     this.items = new Items(items);
     this.countOfTurns = 0;

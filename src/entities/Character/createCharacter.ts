@@ -10,4 +10,4 @@ const createCharacter = () => {
   const Max = new CharacterFastest();
   const Mary = new CharacterWithHandGun();
   const Johnny = new CharacterWithBigHP();
-}
+};

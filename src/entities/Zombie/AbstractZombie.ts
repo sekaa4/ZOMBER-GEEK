@@ -13,10 +13,7 @@ export default abstract class Zombie implements AbstractZombie {
 
   health: number;
 
-  constructor(
-    name: string,
-    health: number,
-  ) {
+  constructor(name: string, health: number) {
     this.name = name;
     this.health = health;
   }

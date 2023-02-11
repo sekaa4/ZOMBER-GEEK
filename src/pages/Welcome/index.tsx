@@ -11,6 +11,6 @@ const Welcome: FC = () => {
       <ButtonsContainer />
     </div>
   );
-}
+};
 
 export default Welcome;

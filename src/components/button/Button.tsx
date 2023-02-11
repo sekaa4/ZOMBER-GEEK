@@ -6,14 +6,12 @@ interface ButtonProps {
   title?: string;
 }
 
-const Button: FC<ButtonProps> = ({
-  title = ConstantsString.BUTTON,
-}) => {
+const Button: FC<ButtonProps> = ({ title = ConstantsString.BUTTON }) => {
   return (
     <button type="button" className={classes.button}>
       {title}
     </button>
   );
-}
+};
 
 export default Button;

@@ -6,4 +6,4 @@ interface Characters {
 
 const initialState = {
   characters: [],
-}
+};
