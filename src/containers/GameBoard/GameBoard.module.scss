@@ -1,0 +1,12 @@
+$game-field-cell-side: 1fr;
+$game-field-side: 100vh;
+.gameField {
+  display: grid;
+  grid-template-columns: repeat(12, $game-field-cell-side);
+  grid-template-rows: repeat(12, $game-field-cell-side);
+  background-image: url('../../assets/images/field.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: $game-field-side;
+  width: $game-field-side;
+}
