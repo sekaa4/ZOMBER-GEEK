@@ -13,6 +13,6 @@ const SimpleText: FC<SimpleTextProps> = ({
       <span>{text}</span>
     </div>
   );
-}
+};
 
 export default SimpleText;

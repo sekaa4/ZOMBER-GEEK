@@ -4,7 +4,7 @@ $game-field-side: 100vh;
   display: grid;
   grid-template-columns: repeat(12, $game-field-cell-side);
   grid-template-rows: repeat(12, $game-field-cell-side);
-  background-image: url('../../assets/images/field.webp');
+  background-image: url("../../assets/images/field.webp");
   background-size: contain;
   background-repeat: no-repeat;
   height: $game-field-side;
