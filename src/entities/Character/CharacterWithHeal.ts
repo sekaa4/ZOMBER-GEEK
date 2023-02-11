@@ -1,3 +1,4 @@
+/* eslint-disable no-constructor-return */
 import IItems from "../../models/Items.type";
 import IWeapons from "../../models/Weapons.type";
 import CharacterProps from "../../models/CharacterProps";
@@ -26,7 +27,7 @@ export default class CharacterWithHeal extends Character {
 
     super(
       CharacterProps.CharacterNameWithHeal,
-      (health = CharacterProps.CharacterDefaultHP),
+      health ?? CharacterProps.CharacterDefaultHP,
     );
     this.weapons = new Weapons(weapons);
     this.items = new Items(items);
@@ -35,7 +36,6 @@ export default class CharacterWithHeal extends Character {
 
     this.start();
     CharacterWithHeal.instance = this;
-    return this;
   }
 
   incrementHealth() {}

@@ -1,3 +1,4 @@
+/* eslint-disable no-constructor-return */
 import IItems from "../../models/Items.type";
 import IWeapons from "../../models/Weapons.type";
 import CharacterProps from "../../models/CharacterProps";

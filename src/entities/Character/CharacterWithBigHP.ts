@@ -1,3 +1,4 @@
+/* eslint-disable no-constructor-return */
 import IItems from "../../models/Items.type";
 import IWeapons from "../../models/Weapons.type";
 import CharacterProps from "../../models/CharacterProps";
@@ -35,6 +36,5 @@ export default class CharacterWithBigHP extends Character {
 
     this.start();
     CharacterWithBigHP.instance = this;
-    return this;
   }
 }

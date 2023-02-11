@@ -1,3 +1,4 @@
+/* eslint-disable no-constructor-return */
 import IItems from "../../models/Items.type";
 import IWeapons from "../../models/Weapons.type";
 import CharacterProps from "../../models/CharacterProps";
@@ -26,7 +27,7 @@ export default class CharacterFastest extends Character {
 
     super(
       CharacterProps.CharacterNameFastest,
-      (health = CharacterProps.CharacterDefaultHP),
+      health ?? CharacterProps.CharacterDefaultHP,
     );
     this.weapons = new Weapons(weapons);
     this.items = new Items(items);
@@ -35,7 +36,6 @@ export default class CharacterFastest extends Character {
 
     this.start();
     CharacterFastest.instance = this;
-    return this;
   }
 
   move() {}
