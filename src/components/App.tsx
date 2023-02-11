@@ -1,9 +1,10 @@
-// import Welcome from "../pages/Welcome";
-
-import Main from "../pages/MainPage";
+import FieldCell from "./Field-cell/FieldCell";
+import RollSpin from "./roll-spin/RollSpin";
+import BoardPage from "../pages/Board/BoardPage";
 
 const App = () => {
-  return <Main />;
+  // return <RollSpin />;
+  return <BoardPage />;
 };
 
 export default App;
