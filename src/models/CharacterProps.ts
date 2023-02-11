@@ -6,7 +6,8 @@ enum CharacterProps {
   CharacterNameWithBigHP = "Johnny",
 
   CharacterDefaultHP = 3,
-  CharacterBigHP = 5,Name
+  CharacterBigHP = 5,
+  Name,
 }
 
 export default CharacterProps;

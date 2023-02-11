@@ -25,10 +25,7 @@ export default abstract class Character implements AbstractCharacter {
 
   health: number;
 
-  constructor(
-    name: string,
-    health: number,
-  ) {
+  constructor(name: string, health: number) {
     this.name = name;
     this.health = health;
   }

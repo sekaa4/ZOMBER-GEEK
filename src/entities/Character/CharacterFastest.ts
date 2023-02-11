@@ -7,6 +7,7 @@ import Character from "./AbstractCharacter";
 
 export default class CharacterFastest extends Character {
   static instance: CharacterFastest;
+
   weapons: IWeapons | undefined;
 
   items: IItems | undefined;
@@ -15,16 +16,18 @@ export default class CharacterFastest extends Character {
 
   currentPositionId: null | undefined | number;
 
-  constructor(
-    health?: number,
-    items?: IItems,
-    weapons?: IWeapons,
-  ) {
-    if (CharacterFastest.instance && CharacterFastest.instance instanceof CharacterFastest) {
+  constructor(health?: number, items?: IItems, weapons?: IWeapons) {
+    if (
+      CharacterFastest.instance &&
+      CharacterFastest.instance instanceof CharacterFastest
+    ) {
       return CharacterFastest.instance;
     }
 
-    super(CharacterProps.CharacterNameFastest, health = CharacterProps.CharacterDefaultHP);
+    super(
+      CharacterProps.CharacterNameFastest,
+      (health = CharacterProps.CharacterDefaultHP),
+    );
     this.weapons = new Weapons(weapons);
     this.items = new Items(items);
     this.countOfTurns = 0;
