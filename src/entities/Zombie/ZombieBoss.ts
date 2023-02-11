@@ -1,3 +1,4 @@
+/* eslint-disable no-constructor-return */
 import Zombie from "./AbstractZombie";
 import ZombieProps from "../../models/ZombieProps";
 
@@ -15,13 +16,12 @@ export default class ZombieBoss extends Zombie {
       return ZombieBoss.instance;
     }
 
-    super(ZombieProps.ZombieNameBoss, (health = ZombieProps.ZombieDefaultHP));
+    super(ZombieProps.ZombieNameBoss, health ?? ZombieProps.ZombieDefaultHP);
     this.countOfTurns = 0;
     this.currentPositionId = null;
     this.id = this.currentPositionId;
 
     this.start();
     ZombieBoss.instance = this;
-    return this;
   }
 }

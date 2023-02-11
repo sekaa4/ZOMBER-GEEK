@@ -1,7 +1,7 @@
 import { AppDispatch } from "../store";
 import { fieldSlice } from "./FieldSlice";
 
-export const createField = () => (dispatch: AppDispatch) => {
+const createField = () => (dispatch: AppDispatch) => {
   try {
     dispatch(fieldSlice.actions.drawField());
     // Create Field Cell, wait array field cell, and pass values to function;
@@ -10,3 +10,5 @@ export const createField = () => (dispatch: AppDispatch) => {
     dispatch(fieldSlice.actions.drawFieldError(error.message));
   }
 };
+
+export default createField;

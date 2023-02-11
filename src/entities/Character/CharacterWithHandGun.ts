@@ -31,7 +31,7 @@ export default class CharacterWithHandGun extends Character {
 
     super(
       CharacterProps.CharacterNameWithHandGun,
-      (health = CharacterProps.CharacterDefaultHP),
+      health ?? CharacterProps.CharacterDefaultHP,
     );
     this.weapons = new Weapons(weapons ?? baseHandguns);
     this.items = new Items(items);
