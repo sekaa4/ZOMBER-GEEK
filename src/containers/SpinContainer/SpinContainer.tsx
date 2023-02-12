@@ -1,4 +1,4 @@
-import { useState, Dispatch } from "react";
+import { useState } from "react";
 import RollSpin from "../../components/roll-spin/RollSpin";
 import StateButton from "../../components/roll-spin/StateButton.type";
 import randomNumber from "../../utils/randomNumber";
@@ -13,20 +13,18 @@ const actionsArr = [
 ];
 
 interface SpinContainerProps {
-  setAction: Dispatch<React.SetStateAction<string | number>>;
-  setCountOfTurn: Dispatch<React.SetStateAction<string | number>>;
+  setAction(param: string | number): void;
+  setCountOfTurn(param: string | number): void;
 }
 
 const SpinContainer = (props: SpinContainerProps) => {
-  // const spinner = useRef<HTMLDivElement>(null);
-  // type Option = "number" | "action";
-
   const { setAction, setCountOfTurn } = props;
   const [rotate, setRotate] = useState(0);
   const initStateButton: StateButton = {
     disabled: false,
     userSelect: true,
   };
+
   const [stateButton, setStateButton] = useState(initStateButton);
 
   let deg = 0;

@@ -17,7 +17,7 @@ const RollSpin = (props: RollSpinProps) => {
     <div className={cls.mainbox}>
       <button
         type="button"
-        className={[cls.spin, stateButton.userSelect ? cls.disabled : ""].join(
+        className={[cls.spin, stateButton.userSelect ? "" : cls.disabled].join(
           " ",
         )}
         onClick={rotateSpin}
