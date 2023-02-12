@@ -3,7 +3,9 @@ import GameBoard from "../../containers/GameBoard/GameBoard";
 import CharacterCard from "../../components/characterCard/CharacterCard";
 import classes from "./board.module.scss";
 import Header from "../../components/boardPageHeader/Header";
-import RollSpin from "../../components/roll-spin/RollSpin";
+import ActionContainer from "../../containers/ActionContainer/ActionContainer";
+import Button from "../../components/button/Button";
+import BoardText from "../../models/BoardText";
 
 const BoardPage: FC = () => (
   <section className={classes.boardPage}>
@@ -11,8 +13,7 @@ const BoardPage: FC = () => (
     <div className={classes.boardPageInfo}>
       <Header />
       <div className={classes.boardPageSpinner}>
-        <RollSpin />
-        <RollSpin />
+        <ActionContainer />
       </div>
       <div className={classes.boardPageCharactersContainer}>
         <CharacterCard />
@@ -20,6 +21,10 @@ const BoardPage: FC = () => (
         <CharacterCard />
         <CharacterCard />
         <CharacterCard />
+      </div>
+      <div className={classes.buttons}>
+        <Button title={BoardText.pause} />
+        <Button title={BoardText.continue} />
       </div>
     </div>
   </section>

@@ -6,4 +6,6 @@ div[id="root"] {
 body {
   @extend %font-prim;
   @include font($size: 1.4rem, $height: 2.6rem, $weight: normal);
+  background-color: $board-page-bg-color;
+  transition: all 0.5s;
 }
