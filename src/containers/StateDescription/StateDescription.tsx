@@ -4,13 +4,19 @@ import GameTime from "../../components/gameTime/GameTime";
 import GameTurns from "../../components/gameTurns/GameTurns";
 import classes from "./StateDescription.module.scss";
 
-const StateDescription = () => {
+interface StateDescriptionProps {
+  action: string | number;
+  countOfTurn: string | number;
+}
+
+const StateDescription = (props: StateDescriptionProps) => {
+  const { action, countOfTurn } = props;
   return (
     <div className={classes["state-description"]}>
       <GameTime />
       <GameTurns />
-      <GameAction />
-      <GamePointsOfAction />
+      <GameAction action={action} />
+      <GamePointsOfAction points={countOfTurn} />
     </div>
   );
 };

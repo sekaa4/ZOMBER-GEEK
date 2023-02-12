@@ -1,7 +1,10 @@
-import classes from "./GamePointsOfAction.module.scss";
+interface GameActionProps {
+  points: string | number;
+}
 
-const GamePointsOfAction = () => {
-  return <div className={classes["game-points"]}>GamePointsOfAction</div>;
+const GamePointsOfAction = (props: GameActionProps) => {
+  const { points } = props;
+  return <div>GamePoints: {points}</div>;
 };
 
 export default GamePointsOfAction;
