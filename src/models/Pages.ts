@@ -1,6 +1,7 @@
 enum Pages {
   welcome = "/",
   main = "/main",
+  game = "/game",
   notfound = "*",
 }
 
