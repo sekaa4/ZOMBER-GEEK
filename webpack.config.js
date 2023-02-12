@@ -10,7 +10,7 @@ const config = {
   devtool: isDev ? "inline-source-map" : undefined,
   entry: "./src/index.tsx",
   output: {
-    filename: '[name].[contenthash].js',
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -43,14 +43,15 @@ const config = {
             loader: "css-loader",
             options: {
               modules: {
-                auto: (resPath) => resPath.includes('.module.'),
+                auto: (resPath) => resPath.includes(".module."),
                 localIdentName: isDev
                   ? "[path][name]__[local]--[hash:base64:5]"
                   : "[hash:base64:8]",
               },
-            }
+            },
           },
-          "sass-loader"],
+          "sass-loader",
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

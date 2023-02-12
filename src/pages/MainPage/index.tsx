@@ -3,11 +3,13 @@ import ButtonsContainerMain from "../../containers/ButtonsContainerMain/ButtonsC
 import MainPage from "../../models/MainPage";
 import classes from "./index.module.scss";
 
-export default function Main() {
+const Main = () => {
   return (
     <div className={classes.welcome}>
       <SimpleText text={MainPage.MAIN_TITLE} />
       <ButtonsContainerMain />
     </div>
   );
-}
+};
+
+export default Main;
