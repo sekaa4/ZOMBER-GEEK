@@ -1,8 +1,9 @@
+import { FC } from "react";
 import Button from "../../components/button/Button";
 import MainPage from "../../models/MainPage";
 import classes from "./ButtonsContainerMain.module.scss";
 
-export default function ButtonsContainerMain() {
+const ButtonsContainerMain: FC = () => {
   return (
     <div className={classes.container}>
       <div className={classes.buttons}>
@@ -18,4 +19,6 @@ export default function ButtonsContainerMain() {
       </div>
     </div>
   );
-}
+};
+
+export default ButtonsContainerMain;

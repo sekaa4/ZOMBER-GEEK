@@ -1,0 +1,11 @@
+div[id="root"] {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  @extend %font-prim;
+  @include font($size: 1.4rem, $height: 2.6rem, $weight: normal);
+  background-color: white;
+  transition: all 0.5s;
+}

@@ -1,9 +1,7 @@
-// import Welcome from "../pages/Welcome";
-
-import Main from "../pages/MainPage";
+import BoardPage from "../pages/Board/BoardPage";
 
 const App = () => {
-  return <Main />;
+  return <BoardPage />;
 };
 
 export default App;

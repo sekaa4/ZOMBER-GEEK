@@ -1,3 +1,4 @@
+/* eslint-disable no-constructor-return */
 import IItems from "../../models/Items.type";
 import IWeapons from "../../models/Weapons.type";
 import CharacterProps from "../../models/CharacterProps";
@@ -30,7 +31,7 @@ export default class CharacterWithHandGun extends Character {
 
     super(
       CharacterProps.CharacterNameWithHandGun,
-      (health = CharacterProps.CharacterDefaultHP),
+      health ?? CharacterProps.CharacterDefaultHP,
     );
     this.weapons = new Weapons(weapons ?? baseHandguns);
     this.items = new Items(items);

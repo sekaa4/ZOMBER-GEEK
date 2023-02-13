@@ -1,6 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Route, Routes } from "react-router-dom";
-import Pages from "./models/pages";
+import Pages from "./models/Pages";
+import BoardPage from "./pages/Board/BoardPage";
 import Main from "./pages/MainPage";
 import Welcome from "./pages/Welcome";
 
@@ -9,6 +9,7 @@ const AppRouter = () => {
     <Routes>
       <Route path={Pages.welcome} element={<Welcome />} />
       <Route path={Pages.main} element={<Main />} />
+      <Route path={Pages.game} element={<BoardPage />} />
     </Routes>
   );
 };

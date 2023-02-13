@@ -19,15 +19,18 @@ export const fieldSlice = createSlice({
   initialState,
   reducers: {
     drawField(state) {
-      state.isLoading = true;
+      const localState = state;
+      localState.isLoading = true;
     },
     drawFieldSuccess(state, action: PayloadAction<[]>) {
-      state.isLoading = false;
-      state.field = action.payload;
+      const localState = state;
+      localState.isLoading = false;
+      localState.field = action.payload;
     },
     drawFieldError(state, action: PayloadAction<string>) {
-      state.isLoading = false;
-      state.error = action.payload;
+      const localState = state;
+      localState.isLoading = false;
+      localState.error = action.payload;
     },
   },
 });
