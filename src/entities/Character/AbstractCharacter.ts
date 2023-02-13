@@ -1,3 +1,5 @@
+import { Stage } from "../../models/Character.type";
+
 interface AbstractCharacter {
   start(): void;
 
@@ -25,9 +27,15 @@ export default abstract class Character implements AbstractCharacter {
 
   health: number;
 
+  stage: Stage;
+
+  active: boolean;
+
   constructor(name: string, health: number) {
     this.name = name;
     this.health = health;
+    this.stage = "prepare";
+    this.active = false;
   }
 
   start() {}

@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { NetlifyPlugin } = require('netlify-webpack-plugin');
 
 const isDev = process.env.NODE_ENV == "development";
 
@@ -26,6 +27,15 @@ const config = {
     new MiniCssExtractPlugin({
       filename: "css/[name].[contenthash:8].css",
       chunkFilename: "css/[name].[contenthash:8].css",
+    }),
+    new NetlifyPlugin({
+      redirects: [{
+        from: "/*",
+        to: "/index.html",
+        status: 200,
+        force: false,
+      },
+      ],
     }),
   ],
   module: {

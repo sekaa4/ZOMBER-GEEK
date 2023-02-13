@@ -1,7 +1,7 @@
-import BoardPage from "../pages/Board/BoardPage";
+import Main from "../pages/MainPage";
 
 const App = () => {
-  return <BoardPage />;
+  return <Main />;
 };
 
 export default App;

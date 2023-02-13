@@ -2,10 +2,16 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userAPI from "../api/UserService";
 import ConstantsString from "../models/ConstantsString";
 import fieldReducer from "./reducers/FieldSlice";
+import boardReducer from "./reducers/BoardSlice";
+import characterReducer from "./reducers/CharacterSlice";
+import zombieReducer from "./reducers/ZombieSlice";
 
 const rootReducer = combineReducers({
   fieldReducer,
   [userAPI.reducerPath]: userAPI.reducer,
+  boardReducer,
+  characterReducer,
+  zombieReducer,
 });
 
 export const setupStore = () => {
