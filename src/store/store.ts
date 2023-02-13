@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userAPI from "../api/UserService";
 import ConstantsString from "../models/ConstantsString";
 import fieldReducer from "./reducers/FieldSlice";
+import boardReducer from "./reducers/BoardSlice";
 
 const rootReducer = combineReducers({
   fieldReducer,
   [userAPI.reducerPath]: userAPI.reducer,
+  boardReducer,
 });
 
 export const setupStore = () => {
