@@ -5,7 +5,7 @@ const GameTime = () => {
     time: 0,
     timeString: `00:00:00`,
   });
-  const [timerId, setTimerId] = useState<NodeJS.Timer>();
+  const [timerId, setTimerId] = useState<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
     const id = setInterval(() => {

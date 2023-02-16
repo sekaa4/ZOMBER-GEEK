@@ -1,7 +1,8 @@
-import { useState } from "react";
-import RollSpin from "../../components/roll-spin/RollSpin";
-import StateButton from "../../components/roll-spin/StateButton.type";
+import { useContext, useState } from "react";
+import RollSpin from "../../components/rollSpin/RollSpin";
+import StateButton from "../../components/rollSpin/StateButton.type";
 import randomNumber from "../../utils/randomNumber";
+import ActionContext from "../ActionContainer/ActionContext";
 
 const actionsArr = [
   [1, "teeth"],
@@ -12,13 +13,8 @@ const actionsArr = [
   [2, "runner"],
 ];
 
-interface SpinContainerProps {
-  setAction(param: string | number): void;
-  setCountOfTurn(param: string | number): void;
-}
-
-const SpinContainer = (props: SpinContainerProps) => {
-  const { setAction, setCountOfTurn } = props;
+const SpinContainer = () => {
+  const { setActionHandler, setCountOfTurnHandler } = useContext(ActionContext);
   const [rotate, setRotate] = useState(0);
   const initStateButton: StateButton = {
     disabled: false,
@@ -72,11 +68,11 @@ const SpinContainer = (props: SpinContainerProps) => {
     }
 
     setRotate(deg);
-    setAction("Wait result...");
-    setCountOfTurn("Wait result...");
+    setActionHandler("Wait result...");
+    setCountOfTurnHandler("Wait result...");
     setTimeout(() => {
-      setAction(res[1]);
-      setCountOfTurn(res[0]);
+      setActionHandler(res[1] as string);
+      setCountOfTurnHandler(res[0]);
     }, 3000);
   };
 
