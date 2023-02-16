@@ -1,8 +1,10 @@
-interface FieldCell {
-  id: number;
-  characterName: string;
-  zombieID: number;
-  holdItemID: number;
+import ItemsNames from "./ItemsNames.type";
+
+interface FieldCell<CellIDType> {
+  id: CellIDType;
+  characterName: string | null;
+  zombieID: number | null | undefined;
+  holdItemID: ItemsNames | null;
   left: boolean;
   right: boolean;
   top: boolean;

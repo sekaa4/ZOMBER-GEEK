@@ -6,7 +6,7 @@ export default class ZombieDefault extends Zombie {
 
   currentPositionId: null | number;
 
-  readonly id: null | number;
+  id: null | number;
 
   constructor(health?: number) {
     super(ZombieProps.ZombieNameDefault, health ?? ZombieProps.ZombieDefaultHP);
