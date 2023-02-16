@@ -1,4 +1,4 @@
-import StartCellsForCharactersIDs from "../../entities/StartCellsForCharactersIDs/StartCellsForCharactersIDs";
+import StartCellsForCharactersIDs from "../../constants/StartCellsForCharactersIDs";
 import FieldCell from "../../models/FieldCell.type";
 
 type CellIDs = number[];
