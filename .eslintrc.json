@@ -19,15 +19,8 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "prettier"
-  ],
-  "ignorePatterns": [
-    "webpack.config.js",
-    "**/*.html"
-  ],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "ignorePatterns": ["webpack.config.js", "**/*.html"],
   "rules": {
     "indent": [
       "error",
@@ -36,26 +29,12 @@
         "SwitchCase": 1
       }
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "react/react-in-jsx-scope": [
-      "off"
-    ],
-    "react/jsx-uses-react": [
-      "off"
-    ],
-    "react/jsx-props-no-spreading": [
-      "warn"
-    ],
-    "react/no-unescaped-entities": [
-      "off"
-    ],
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"],
+    "react/react-in-jsx-scope": ["off"],
+    "react/jsx-uses-react": ["off"],
+    "react/jsx-props-no-spreading": ["warn"],
+    "react/no-unescaped-entities": ["off"],
     "react/function-component-definition": [
       2,
       {

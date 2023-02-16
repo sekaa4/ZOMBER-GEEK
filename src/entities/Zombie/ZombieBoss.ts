@@ -9,7 +9,7 @@ export default class ZombieBoss extends Zombie {
 
   currentPositionId: null | undefined | number;
 
-  readonly id: null | undefined | number;
+  id: null | undefined | number;
 
   constructor(health?: number) {
     if (ZombieBoss.instance && ZombieBoss.instance instanceof ZombieBoss) {

@@ -11,3 +11,5 @@ const createCharacter = () => {
   const Mary = new CharacterWithHandGun();
   const Johnny = new CharacterWithBigHP();
 };
+
+export default createCharacter;
