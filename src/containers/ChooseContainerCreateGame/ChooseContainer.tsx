@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useState } from "react";
 import Button from "../../components/button/Button";
 import CreateGameConstants from "../../models/CreateGameConstants";
 import LabelContainer from "../LabelContainer/LabelContainer";
+import ListOfCharacters from "../ListOfCharacters/ListOfCharacters";
 import classes from "./ChooseContainer.module.scss";
 
 const ChooseContainer: FC = () => {
@@ -23,17 +24,7 @@ const ChooseContainer: FC = () => {
     <div className={classes.container}>
       <LabelContainer onChangeHandler={setPlayersHandler} />
       <div className={classes["characters-container"]}>
-        <div>
-          <span> List of Characters: </span>
-          <ol>
-            {Array(players)
-              .fill(null)
-              .map((arg, i) => {
-                const key = i + 1;
-                return <li key={key}> </li>;
-              })}
-          </ol>
-        </div>
+        <ListOfCharacters playersNumber={players} />
         <div>block2</div>
         <div>block3</div>
 
