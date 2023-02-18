@@ -4,11 +4,14 @@ import classes from "./Button.module.scss";
 
 interface ButtonProps {
   title?: string;
+  disabled?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ title = ConstantsString.BUTTON }) => {
+const Button: FC<ButtonProps> = (props: ButtonProps) => {
+  const { title = ConstantsString.BUTTON, disabled } = props;
+
   return (
-    <button type="button" className={classes.button}>
+    <button type="button" className={classes.button} disabled={disabled}>
       {title}
     </button>
   );

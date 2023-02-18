@@ -7,14 +7,18 @@ interface LabelInputProps {
   value: string;
   id: string;
   name: string;
+  classNames?: string;
 }
 
 const LabelInput = (props: PropsWithChildren<LabelInputProps>) => {
-  const { onChangeHandler, type, value, id, name } = props;
+  const { onChangeHandler, type, value, id, name, classNames = "" } = props;
 
   return (
-    <label htmlFor={id} className={classes.label}>
-      {value}
+    <label
+      htmlFor={id}
+      className={[classes.label, classes[classNames]].join(" ")}
+    >
+      <span className={classes.title}>{value}</span>
       <input
         type={type}
         value={value}

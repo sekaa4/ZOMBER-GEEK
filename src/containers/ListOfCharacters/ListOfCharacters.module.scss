@@ -1,5 +1,10 @@
-.list-characters {
+.list-players {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: 1px solid rgba($color: #000000, $alpha: 1);
   border-radius: 5px;
   padding: 2rem;
+  min-height: 22rem;
+  min-width: 22rem;
 }

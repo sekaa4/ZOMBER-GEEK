@@ -8,3 +8,17 @@
     cursor: pointer;
   }
 }
+
+.label-line {
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  cursor: pointer;
+  > * {
+    cursor: pointer;
+  }
+}
+
+.title {
+  width: 5rem;
+  text-align: center;
+}
