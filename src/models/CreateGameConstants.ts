@@ -1,4 +1,4 @@
-enum MainPage {
+enum CreateGameConstants {
   CREATE_TITLE = "Create Game",
   NUMBER_PLAYERS = "Number of Players",
   GAME_MODE = "Game Mode",
@@ -8,4 +8,4 @@ enum MainPage {
   SELECT = "Select",
 }
 
-export default MainPage;
+export default CreateGameConstants;

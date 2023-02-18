@@ -8,10 +8,19 @@ interface LabelInputProps {
   id: string;
   name: string;
   classNames?: string;
+  disabled?: boolean;
 }
 
 const LabelInput = (props: PropsWithChildren<LabelInputProps>) => {
-  const { onChangeHandler, type, value, id, name, classNames = "" } = props;
+  const {
+    onChangeHandler,
+    type,
+    value,
+    id,
+    name,
+    disabled,
+    classNames = "",
+  } = props;
 
   return (
     <label
@@ -24,6 +33,7 @@ const LabelInput = (props: PropsWithChildren<LabelInputProps>) => {
         value={value}
         id={id}
         name={name}
+        disabled={disabled}
         onChange={onChangeHandler}
       />
     </label>

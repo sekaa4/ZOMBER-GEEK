@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+}
+
+.select-button {
+  display: none;
+  position: absolute;
+  bottom: 30px;
+  right: 0;
+}
+
+.visible {
+  display: block;
+}
+
+.image {
+  width: 100%;
+}
