@@ -38,9 +38,8 @@ const ImageCharacter = (props: ImageCharacterProps) => {
             ? [classes["select-button"]]
             : [classes["select-button"], classes.visible]
         }
-        onChangeHandler={onChangeHandler}
+        onClickHandler={onChangeHandler}
       />
-      {/* <button type="button">{CreateGameConstants.SELECT}</button> */}
     </div>
   );
 };

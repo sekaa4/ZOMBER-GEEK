@@ -1,31 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CharacterName, Character, Stage } from "../../models/Character.type";
-import { characterSlice } from "./CharacterSlice";
-
-type CharacterObj = Record<CharacterName, Character>;
+import ZombieObj from "../../models/Zombie.type";
 
 interface Zombies {
-  zombies: ZombieObj | null;
+  zombies: ZombieObj[] | null;
 }
 
-interface ActionPayload {
-  id: number;
-  name: string;
-  value: number | string | boolean | Stage;
-}
+// interface ActionPayload {
+//   id: number;
+//   name: string;
+//   value: number | string | boolean | Stage;
+// }
 
-interface ActionPayloadNew {
-  name: CharacterName;
-  zombhieObj: ZombieObj;
-}
-
-interface ZombieObj {
-  name: string;
-  health: number;
-  countOfTurns: number;
-  currentPositionId: number | null;
-  id: number;
-}
+// interface ActionPayloadNew {
+//   name: CharacterName;
+//   zombhieObj: ZombieObj;
+// }
 
 const initialState: Zombies = {
   zombies: null,
@@ -35,6 +24,10 @@ export const zombieSlice = createSlice({
   name: "zombie",
   initialState,
   reducers: {
+    writeZombies(state: Zombies, action: PayloadAction<ZombieObj[]>) {
+      const currentState = state;
+      currentState.zombies = action.payload;
+    },
     // initPosition(state: Zombies, action: PayloadAction<ActionPayload>) {
     //   const currentState = state;
     //   const { name, value } = action.payload;

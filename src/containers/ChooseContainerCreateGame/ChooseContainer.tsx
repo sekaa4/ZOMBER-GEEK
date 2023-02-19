@@ -1,7 +1,19 @@
 import { ChangeEvent, FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
+import { countOfCells } from "../../constants/CellsToMoves";
+import items from "../../constants/Items";
+import weapons from "../../constants/Weapons";
+import createCharacter from "../../entities/Character/createCharacter";
+import { useAppDispatch } from "../../hooks/redux";
 import { CharacterName } from "../../models/Character.type";
 import CreateGameConstants from "../../models/CreateGameConstants";
+import Pages from "../../models/Pages";
+import { boardSlice } from "../../store/reducers/BoardSlice";
+import { characterSlice } from "../../store/reducers/CharacterSlice";
+import { zombieSlice } from "../../store/reducers/ZombieSlice";
+import createFieldBoard from "../../utils/createFieldBoard/createFieldBoard";
+import createZombiesArray from "../../utils/createZombiesArray";
 import ChooseCharacters from "../ChooseCharacters/ChooseCharacters";
 import LabelContainer from "../LabelContainer/LabelContainer";
 import ListOfCharacters from "../ListOfCharacters/ListOfCharacters";
@@ -9,9 +21,13 @@ import ViewCharacter from "../ViewCharacter/ViewCharacter";
 import classes from "./ChooseContainer.module.scss";
 
 const ChooseContainer: FC = () => {
+  const dispatch = useAppDispatch();
   const [players, setPlayers] = useState<number>(0);
   const [character, setCharacter] = useState<CharacterName>();
   const [characters, setCharacters] = useState<CharacterName[]>([]);
+
+  const isDisabled = players === 0 || players > characters.length;
+  const navigate = useNavigate();
 
   const setPlayersHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target;
@@ -29,7 +45,16 @@ const ChooseContainer: FC = () => {
     });
   };
 
-  const isDisabled = players === 0 || players > characters.length;
+  const startGameHandler = () => {
+    const zombies = createZombiesArray(24);
+    const cells = createFieldBoard(countOfCells, zombies, items, weapons);
+    const charactersObj = createCharacter(characters);
+    dispatch(boardSlice.actions.writeFieldCells(cells));
+    dispatch(characterSlice.actions.writeCharacters(charactersObj));
+    dispatch(zombieSlice.actions.writeZombies(zombies));
+
+    navigate(Pages.game);
+  };
 
   return (
     <div className={classes.container}>
@@ -45,7 +70,11 @@ const ChooseContainer: FC = () => {
         />
       </div>
       <div className={classes.button}>
-        <Button title={CreateGameConstants.START_GAME} disabled={isDisabled} />
+        <Button
+          title={CreateGameConstants.START_GAME}
+          disabled={isDisabled}
+          onClickHandler={startGameHandler}
+        />
       </div>
     </div>
   );

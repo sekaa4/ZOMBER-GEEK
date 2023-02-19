@@ -6,7 +6,7 @@ interface ButtonProps {
   title?: string;
   disabled?: boolean;
   classNames?: string[];
-  onChangeHandler?: () => void;
+  onClickHandler?: () => void;
 }
 
 const Button: FC<ButtonProps> = (props: ButtonProps) => {
@@ -14,7 +14,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
     title = ConstantsString.BUTTON,
     disabled,
     classNames = [],
-    onChangeHandler,
+    onClickHandler,
   } = props;
 
   return (
@@ -22,7 +22,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
       type="button"
       className={[classes.button, ...classNames].join(" ")}
       disabled={disabled}
-      onClick={onChangeHandler}
+      onClick={onClickHandler}
     >
       {title}
     </button>
