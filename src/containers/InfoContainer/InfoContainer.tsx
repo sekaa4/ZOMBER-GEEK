@@ -38,12 +38,12 @@ const InfoContainer = () => {
       resume.current.disabled = true;
     }
     const id = setInterval(() => {
-      setTime((oldTime: any) => {
-        const seconds = `0${oldTime.time % 60}`.slice(-2);
-
-        const minutes = `0${Math.floor(oldTime.time / 60)}`.slice(-2);
-        const hours = `0${Math.floor(oldTime.time / 3600)}`.slice(-2);
+      setTime((oldTime) => {
         const countTime = oldTime.time + 1;
+        const seconds = `0${countTime % 60}`.slice(-2);
+
+        const minutes = `0${Math.floor(countTime / 60)}`.slice(-2);
+        const hours = `0${Math.floor(countTime / 3600)}`.slice(-2);
 
         const newTime = {
           time: countTime,

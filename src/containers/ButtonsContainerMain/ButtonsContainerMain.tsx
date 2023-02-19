@@ -8,7 +8,7 @@ const ButtonsContainerMain: FC = () => {
     <div className={classes.container}>
       <div className={classes.buttons}>
         <Button title={MainPage.MY_PROFILE} />
-        <Button title={MainPage.SEARCH_GAME} />
+        <Button title={MainPage.CREATE_GAME} />
       </div>
       <div className={classes.buttons}>
         <Button title={MainPage.HISTORY} />

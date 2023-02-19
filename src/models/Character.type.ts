@@ -11,6 +11,10 @@ export type CharacterName =
 
 export type Stage = "prepare" | "roll" | "action" | "finish";
 
+export type Chars = {
+  [key in CharacterName]?: Character;
+};
+
 export interface Character {
   name: CharacterName;
   health: number;
@@ -20,4 +24,6 @@ export interface Character {
   currentPositionId: null | number;
   stage: Stage;
   active: boolean;
+  imageAvatar: string;
+  imageCart: string;
 }

@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Items from "../../entities/Items/Items";
 import Weapons from "../../entities/Weapon/Weapons";
-import { CharacterName, Character, Stage } from "../../models/Character.type";
-
-type CharacterObj = Record<CharacterName, Character>;
+import {
+  CharacterName,
+  Character,
+  Stage,
+  Chars,
+} from "../../models/Character.type";
 
 interface Characters {
-  characters: CharacterObj | null;
+  characters: Chars | null;
 }
 
 interface ActionPayload {
@@ -29,11 +32,16 @@ export const characterSlice = createSlice({
   name: "character",
   initialState,
   reducers: {
+    writeCharacters(state: Characters, action: PayloadAction<Chars>) {
+      const currentState = state;
+      currentState.characters = action.payload;
+    },
+
     initPosition(state: Characters, action: PayloadAction<ActionPayload>) {
       const currentState = state;
       const { name, value } = action.payload;
-      if (currentState.characters) {
-        const currentCharacterObj = currentState.characters[name];
+      if (currentState.characters && currentState.characters[name]) {
+        const currentCharacterObj = currentState.characters[name] as Character;
         currentCharacterObj.currentPositionId = value as number;
       }
     },
@@ -44,8 +52,8 @@ export const characterSlice = createSlice({
     ) {
       const currentState = state;
       const { name, value } = action.payload;
-      if (currentState.characters) {
-        const currentCharacterObj = currentState.characters[name];
+      if (currentState.characters && currentState.characters[name]) {
+        const currentCharacterObj = currentState.characters[name] as Character;
         currentCharacterObj.countOfTurns = value as number;
       }
     },
@@ -58,7 +66,7 @@ export const characterSlice = createSlice({
       const { name, value, item } = action.payload;
       if (currentState.characters && item) {
         const currentCharacterObj = currentState.characters[name];
-        currentCharacterObj.items[item] = value as number;
+        currentCharacterObj!.items[item] = value as number;
       }
     },
 
@@ -70,7 +78,7 @@ export const characterSlice = createSlice({
       const { name, value, weapon } = action.payload;
       if (currentState.characters && weapon) {
         const currentCharacterObj = currentState.characters[name];
-        currentCharacterObj.weapons[weapon] = value as number;
+        currentCharacterObj!.weapons[weapon] = value as number;
       }
     },
 
