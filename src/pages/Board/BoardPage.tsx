@@ -7,9 +7,18 @@ import ActionContainer from "../../containers/ActionContainer/ActionContainer";
 import Button from "../../components/button/Button";
 import BoardText from "../../models/BoardText";
 
+import createFieldBoard from "../../utils/createFieldBoard/createFieldBoard";
+import createZombiesArray from "../../utils/createZombiesArray";
+import items from "../../constants/Items";
+import weapons from "../../constants/Weapons";
+import { countOfCells } from "../../constants/CellsToMoves";
+
+const zombies = createZombiesArray(24);
+const cells = createFieldBoard(countOfCells, zombies, items, weapons);
+
 const BoardPage: FC = () => (
   <section className={classes.boardPage}>
-    <GameBoard />
+    <GameBoard cells={cells} />
     <div className={classes.boardPageInfo}>
       <Header />
       <div className={classes.boardPageSpinner}>

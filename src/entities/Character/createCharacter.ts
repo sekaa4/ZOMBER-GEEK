@@ -1,15 +1,32 @@
+import { CharacterName } from "../../models/Character.type";
 import CharacterFastest from "./CharacterFastest";
 import CharacterWithBigHP from "./CharacterWithBigHP";
 import CharacterWithHandGun from "./CharacterWithHandGun";
 import CharacterWithHeal from "./CharacterWithHeal";
 import CharacterWithKnife from "./CharacterWithKnife";
 
-const createCharacter = () => {
-  const Alex = new CharacterWithKnife();
-  const Anita = new CharacterWithHeal();
-  const Max = new CharacterFastest();
-  const Mary = new CharacterWithHandGun();
-  const Johnny = new CharacterWithBigHP();
+type Chars = {
+  [key in CharacterName]?:
+    | CharacterWithKnife
+    | CharacterWithHeal
+    | CharacterFastest
+    | CharacterWithHandGun
+    | CharacterWithBigHP;
+};
+
+const createCharacter = (keys: CharacterName[]) => {
+  const chars: Chars = {
+    Alex: new CharacterWithKnife(),
+    Anita: new CharacterWithHeal(),
+    Max: new CharacterFastest(),
+    Mary: new CharacterWithHandGun(),
+    Johnny: new CharacterWithBigHP(),
+  };
+  return keys.reduce((accum: Chars, item: CharacterName) => {
+    const result = { ...accum };
+    result[item] = chars[item];
+    return result;
+  }, {});
 };
 
 export default createCharacter;
