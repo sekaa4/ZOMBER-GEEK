@@ -24,4 +24,6 @@ export interface Character {
   currentPositionId: null | number;
   stage: Stage;
   active: boolean;
+  imageAvatar: string;
+  imageCart: string;
 }
