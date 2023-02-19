@@ -6,19 +6,20 @@ import ItemsNames from "../../models/ItemsNames.type";
 const pastZombiesAndItemsToBoard = (
   field: FieldCell<number>[],
   shuffledCellsArray: number[],
-  arrayWidthItems: (ZombieDefault | ZombieBoss | ItemsNames)[],
+  arrayWithItems: (ZombieDefault | ZombieBoss | ItemsNames)[],
 ) => {
-  const resultField = [...field];
-  for (let key = 0; key < arrayWidthItems.length; key += 1) {
-    const currentCard = arrayWidthItems[key];
-    const fieldCellFromID = shuffledCellsArray[key];
+  const resultField = field;
+  for (let key = 0; key < arrayWithItems.length; key += 1) {
+    const correctionToIndex = 1;
+    const currentCard = arrayWithItems[key];
+    const fieldCellFromIDIndex = shuffledCellsArray[key] - correctionToIndex;
     if (
       currentCard instanceof ZombieDefault ||
       currentCard instanceof ZombieBoss
     ) {
-      resultField[fieldCellFromID].zombieID = currentCard.id;
+      resultField[fieldCellFromIDIndex].zombieID = currentCard.id;
     } else {
-      resultField[fieldCellFromID].holdItemID = currentCard;
+      resultField[fieldCellFromIDIndex].holdItemID = currentCard;
     }
   }
   return resultField;
