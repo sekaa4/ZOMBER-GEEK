@@ -3,6 +3,8 @@ enum Pages {
   main = "/main",
   game = "/game",
   create = "/create-game",
+  login = "/login",
+  signup = "/signup",
   notfound = "*",
 }
 
