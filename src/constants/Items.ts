@@ -1,10 +1,11 @@
 import Items from "../entities/Items/Items";
+import ItemsAndWeaponsNames from "../models/ItemsAndWeaponsNames";
 
 const items = new Items({
-  firstAidKits: 6,
-  boards: 8,
-  gasoline: 1,
-  keys: 1,
+  [ItemsAndWeaponsNames.FIRST_AID_KITS]: 6,
+  [ItemsAndWeaponsNames.BOARDS]: 8,
+  [ItemsAndWeaponsNames.GASOLINE]: 1,
+  [ItemsAndWeaponsNames.KEYS]: 1,
 });
 
 export default items;

@@ -1,6 +1,6 @@
 enum ZombieProps {
-  ZombieNameDefault = "ZombieDefault",
-  ZombieNameBoss = "Swamp Horror",
+  ZombieNameDefault = "zombieDefault",
+  ZombieNameBoss = "zombieBoss",
 
   ZombieDefaultHP = 1,
 }

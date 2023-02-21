@@ -8,7 +8,7 @@ enum ItemsAndWeaponsNames {
   CROSSBOWS = "crossbows",
   AXES = "axes",
   HANDGUNS = "handguns",
-  ASSAULTRIFLES = "assaultRiffles",
+  ASSAULTRIFLES = "assaultRifles",
   SHOTGUNS = "shotguns",
   BFG = "BFG",
 }
