@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import FieldCellComp from "../../components/Field-cell/FieldCell";
 import { Character, Chars } from "../../models/Character.type";
 import FieldCell from "../../models/FieldCell.type";
-import addActiveCellToCharacter from "../../utils/addActiveCellToCharacter";
 import classes from "./GameBoard.module.scss";
 
 type GameBoardProps = {

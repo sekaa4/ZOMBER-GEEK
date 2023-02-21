@@ -7,11 +7,9 @@ import { useAppSelector } from "../../hooks/redux";
 const BoardPage: FC = () => {
   const { fieldCells } = useAppSelector((state) => state.boardReducer);
   const { characters } = useAppSelector((state) => state.characterReducer);
-  const game = useAppSelector((state) => state);
 
   console.log(characters);
   console.log(fieldCells);
-  console.log(game);
 
   return (
     <section className={classes.boardPage}>
