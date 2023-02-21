@@ -1,0 +1,81 @@
+import { Character, CharacterName, Chars } from "../../models/Character.type";
+import FieldCell from "../../models/FieldCell.type";
+
+export interface StandardGameParams {
+  board: FieldCell<number>[];
+  usersNamesList: CharacterName[];
+  usersCharacters: Chars;
+  turn?: number;
+  users?: string[];
+  currentCharacter?: Character;
+  countCharacter?: number;
+  countLifeCharacter?: number;
+  usersNamesLifeList?: CharacterName[];
+  nextTurn?: boolean;
+  finishGame?: boolean;
+}
+
+export default abstract class Game {
+  static id = 0;
+
+  readonly id: number;
+
+  turn: number;
+
+  users: string[];
+
+  board: FieldCell<number>[];
+
+  currentCharacter?: Character;
+
+  countCharacters: number;
+
+  countLifeCharacters: number;
+
+  usersCharacters: Chars;
+
+  usersNamesList: CharacterName[];
+
+  usersNamesLifeList: CharacterName[];
+
+  nextTurn: boolean;
+
+  finishGame: boolean;
+
+  constructor(params: StandardGameParams = {} as StandardGameParams) {
+    const {
+      board,
+      turn,
+      users,
+      currentCharacter,
+      countLifeCharacter,
+      countCharacter,
+      usersCharacters,
+      usersNamesList,
+      usersNamesLifeList,
+      nextTurn,
+      finishGame,
+    } = params;
+
+    this.id = Game.getIdNumber();
+    this.turn = turn ?? 1;
+    this.users = users ?? [];
+    this.board = board;
+    this.currentCharacter = currentCharacter ?? undefined;
+    this.countCharacters = countCharacter ?? usersNamesList.length;
+    this.countLifeCharacters = countLifeCharacter ?? this.countCharacters;
+    this.usersCharacters = usersCharacters;
+    this.usersNamesList = usersNamesList;
+    this.usersNamesLifeList = usersNamesLifeList ?? this.usersNamesList;
+    this.nextTurn = nextTurn ?? false;
+    this.finishGame = finishGame ?? false;
+  }
+
+  abstract start(): void;
+
+  static getIdNumber(): number {
+    Game.id += 1;
+    const curId = Game.id;
+    return curId;
+  }
+}

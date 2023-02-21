@@ -1,7 +1,5 @@
 import ZombieProps from "./ZombieProps";
 
-// type nameZombie = keyof ZombieProps;
-
 interface ZombieObj {
   name: ZombieProps;
   health: number;
