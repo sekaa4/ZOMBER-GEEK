@@ -22,7 +22,7 @@ const BoardPage: FC = () => {
 
   return (
     <section className={classes.boardPage}>
-      <GameBoard cells={fieldCells} />
+      <GameBoard cells={fieldCells} characters={characters} />
       <InfoContainer />
     </section>
   );

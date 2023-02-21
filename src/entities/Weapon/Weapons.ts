@@ -1,32 +1,33 @@
+import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
 import IWeapons from "../../models/Weapons.type";
 
 const mochaWeapons: IWeapons = {
-  grenades: 0,
-  knifes: 0,
-  crossbows: 0,
-  axes: 0,
-  handguns: 0,
-  assaultRifles: 0,
-  shotguns: 0,
-  BFG: 0,
+  [ItemsAndWeaponsNames.GRENADES]: 0,
+  [ItemsAndWeaponsNames.KNIFES]: 0,
+  [ItemsAndWeaponsNames.CROSSBOWS]: 0,
+  [ItemsAndWeaponsNames.AXES]: 0,
+  [ItemsAndWeaponsNames.HANDGUNS]: 0,
+  [ItemsAndWeaponsNames.ASSAULTRIFLES]: 0,
+  [ItemsAndWeaponsNames.SHOTGUNS]: 0,
+  [ItemsAndWeaponsNames.BFG]: 0,
 };
 
 export default class Weapons {
-  grenades?: number;
+  [ItemsAndWeaponsNames.GRENADES]?: number;
 
-  knifes?: number;
+  [ItemsAndWeaponsNames.KNIFES]?: number;
 
-  crossbows?: number;
+  [ItemsAndWeaponsNames.CROSSBOWS]?: number;
 
-  axes?: number;
+  [ItemsAndWeaponsNames.AXES]?: number;
 
-  handguns?: number;
+  [ItemsAndWeaponsNames.HANDGUNS]?: number;
 
-  assaultRifles?: number;
+  [ItemsAndWeaponsNames.ASSAULTRIFLES]?: number;
 
-  shotguns?: number;
+  [ItemsAndWeaponsNames.SHOTGUNS]?: number;
 
-  BFG?: number;
+  [ItemsAndWeaponsNames.BFG]?: number;
 
   constructor({
     grenades,
@@ -38,13 +39,21 @@ export default class Weapons {
     shotguns,
     BFG,
   }: IWeapons = mochaWeapons) {
-    this.grenades = grenades ?? mochaWeapons.grenades;
-    this.knifes = knifes ?? mochaWeapons.knifes;
-    this.crossbows = crossbows ?? mochaWeapons.crossbows;
-    this.axes = axes ?? mochaWeapons.axes;
-    this.handguns = handguns ?? mochaWeapons.handguns;
-    this.assaultRifles = assaultRifles ?? mochaWeapons.handguns;
-    this.shotguns = shotguns ?? mochaWeapons.shotguns;
-    this.BFG = BFG ?? mochaWeapons.shotguns;
+    this[ItemsAndWeaponsNames.GRENADES] =
+      grenades ?? mochaWeapons[ItemsAndWeaponsNames.GRENADES];
+    this[ItemsAndWeaponsNames.KNIFES] =
+      knifes ?? mochaWeapons[ItemsAndWeaponsNames.KNIFES];
+    this[ItemsAndWeaponsNames.CROSSBOWS] =
+      crossbows ?? mochaWeapons[ItemsAndWeaponsNames.CROSSBOWS];
+    this[ItemsAndWeaponsNames.AXES] =
+      axes ?? mochaWeapons[ItemsAndWeaponsNames.AXES];
+    this[ItemsAndWeaponsNames.HANDGUNS] =
+      handguns ?? mochaWeapons[ItemsAndWeaponsNames.HANDGUNS];
+    this[ItemsAndWeaponsNames.ASSAULTRIFLES] =
+      assaultRifles ?? mochaWeapons[ItemsAndWeaponsNames.ASSAULTRIFLES];
+    this[ItemsAndWeaponsNames.SHOTGUNS] =
+      shotguns ?? mochaWeapons[ItemsAndWeaponsNames.SHOTGUNS];
+    this[ItemsAndWeaponsNames.BFG] =
+      BFG ?? mochaWeapons[ItemsAndWeaponsNames.BFG];
   }
 }
