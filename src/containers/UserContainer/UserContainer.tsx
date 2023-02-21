@@ -4,14 +4,7 @@ import User from "../../models/User.type";
 
 const UserContainer = () => {
   const { data, isLoading, error } = userAPI.useFetchAllUsersQuery(5);
-  const [
-    createUser,
-    // {
-    //    Object with isLoading, error here
-    //   error: createError,
-    //   isLoading: isCreateLoading,
-    // },
-  ] = userAPI.useCreateUserMutation();
+  const [createUser /* {} */] = userAPI.useCreateUserMutation();
   const [updateUser /* , {} */] = userAPI.useUpdateUserMutation();
   const [deleteUser /* , {} */] = userAPI.useDeleteUserMutation();
 
