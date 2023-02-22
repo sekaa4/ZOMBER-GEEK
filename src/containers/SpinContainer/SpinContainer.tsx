@@ -1,8 +1,12 @@
 import { useContext, useState } from "react";
 import RollSpin from "../../components/rollSpin/RollSpin";
-import StateButton from "../../components/rollSpin/StateButton.type";
+import StandardGame from "../../entities/Game/StandardGame";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { Character } from "../../models/Character.type";
+import { gameSlice } from "../../store/reducers/GameSlice";
 import randomNumber from "../../utils/randomNumber";
 import ActionContext from "../ActionContainer/ActionContext";
+import delayTime from "./constants";
 
 const actionsArr = [
   [1, "teeth"],
@@ -16,12 +20,9 @@ const actionsArr = [
 const SpinContainer = () => {
   const { setActionHandler, setCountOfTurnHandler } = useContext(ActionContext);
   const [rotate, setRotate] = useState(0);
-  const initStateButton: StateButton = {
-    disabled: false,
-    userSelect: true,
-  };
 
-  const [stateButton, setStateButton] = useState(initStateButton);
+  const dispatch = useAppDispatch();
+  const { game } = useAppSelector((state) => state.gameReducer);
 
   let deg = 0;
   let res: (string | number)[];
@@ -37,14 +38,14 @@ const SpinContainer = () => {
   const rotateSpin = () => {
     const min = 4;
     const max = 15;
-    const newStateButton: StateButton = {
-      disabled: true,
-      userSelect: false,
-    };
 
-    setStateButton(newStateButton);
     const randomNum = randomNumber(min, max);
     res = randomAction(actionsArr);
+
+    if (game) {
+      game.rollDisabled = true;
+      dispatch(gameSlice.actions.writeGameState({ ...game } as StandardGame));
+    }
 
     switch (res[0]) {
       case 1: {
@@ -71,27 +72,19 @@ const SpinContainer = () => {
     setActionHandler("Wait result...");
     setCountOfTurnHandler("Wait result...");
     setTimeout(() => {
-      setActionHandler(res[1] as string);
-      setCountOfTurnHandler(res[0]);
-    }, 3000);
-  };
-
-  const changeStatusButton = () => {
-    const newStateButton: StateButton = {
-      disabled: false,
-      userSelect: true,
-    };
-    setStateButton(newStateButton);
+      if (game) {
+        const curCharacter = game.currentCharacter as Character;
+        setActionHandler(res[1] as string);
+        setCountOfTurnHandler(res[0]);
+        curCharacter.stage = "action";
+        curCharacter.countOfTurns = res[0] as number;
+      }
+    }, delayTime);
   };
 
   return (
     <div>
-      <RollSpin
-        rotate={rotate}
-        stateButton={stateButton}
-        rotateSpin={rotateSpin}
-        changeStatusButton={changeStatusButton}
-      />
+      <RollSpin rotate={rotate} rotateSpin={rotateSpin} />
     </div>
   );
 };
