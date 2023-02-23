@@ -1,5 +1,6 @@
 import { Character, CharacterName, Chars } from "../../models/Character.type";
 import FieldCell from "../../models/FieldCell.type";
+import ZombieObj from "../../models/Zombie.type";
 
 export interface StandardGameParams {
   board: FieldCell<number>[];
@@ -12,7 +13,10 @@ export interface StandardGameParams {
   countLifeCharacter?: number;
   usersNamesLifeList?: CharacterName[];
   nextTurn?: boolean;
+  nextCharacter?: boolean;
   finishGame?: boolean;
+  zombies?: ZombieObj[];
+  rollDisabled?: boolean;
 }
 
 export default abstract class Game {
@@ -42,6 +46,12 @@ export default abstract class Game {
 
   finishGame: boolean;
 
+  zombies: ZombieObj[];
+
+  nextCharacter: boolean;
+
+  rollDisabled: boolean;
+
   constructor(params: StandardGameParams = {} as StandardGameParams) {
     const {
       board,
@@ -55,6 +65,9 @@ export default abstract class Game {
       usersNamesLifeList,
       nextTurn,
       finishGame,
+      zombies,
+      nextCharacter,
+      rollDisabled,
     } = params;
 
     this.id = Game.getIdNumber();
@@ -69,6 +82,9 @@ export default abstract class Game {
     this.usersNamesLifeList = usersNamesLifeList ?? this.usersNamesList;
     this.nextTurn = nextTurn ?? false;
     this.finishGame = finishGame ?? false;
+    this.zombies = zombies ?? [];
+    this.nextCharacter = nextCharacter ?? false;
+    this.rollDisabled = rollDisabled ?? false;
   }
 
   abstract start(): void;

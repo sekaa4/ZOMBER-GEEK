@@ -1,5 +1,6 @@
 import { ENG } from "../../i18n/translate";
 import { CharacterName } from "../../models/Character.type";
+import classes from "./DescriptionCharacter.module.scss";
 
 interface DescriptionCharacterProps {
   character?: CharacterName;
@@ -8,7 +9,7 @@ interface DescriptionCharacterProps {
 const DescriptionCharacter = (props: DescriptionCharacterProps) => {
   const { character = "default" } = props;
 
-  return <div>{ENG[character]}</div>;
+  return <div className={classes.container}>{ENG[character]}</div>;
 };
 
 export default DescriptionCharacter;

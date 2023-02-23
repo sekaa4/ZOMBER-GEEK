@@ -1,39 +1,28 @@
+import { useAppSelector } from "../../hooks/redux";
 import cls from "./RollSpin.module.scss";
-import StateButton from "./StateButton.type";
 
 interface RollSpinProps {
   rotate: number;
-  stateButton: StateButton;
   rotateSpin(): void;
-  changeStatusButton(): void;
 }
 
 const RollSpin = (props: RollSpinProps) => {
-  const { rotate, stateButton, rotateSpin, changeStatusButton } = props;
+  const { rotate, rotateSpin } = props;
+  const { game } = useAppSelector((state) => state.gameReducer);
+  const isDisabled = game?.rollDisabled as boolean;
 
   return (
     <div className={cls.mainbox}>
       <button
         type="button"
-        className={[cls.spin, stateButton.userSelect ? "" : cls.disabled].join(
-          " ",
-        )}
+        className={[cls.spin, isDisabled ? cls.disabled : ""].join(" ")}
         onClick={rotateSpin}
-        disabled={stateButton.disabled}
+        disabled={isDisabled}
       >
         spin
       </button>
       <span className={cls.arrow} />
-      <div
-        className={cls.box}
-        style={{ transform: `rotate(${rotate}deg)` }}
-        onTransitionEnd={changeStatusButton}
-      >
-        <span />
-        <span />
-        <span />
-        <span />
-      </div>
+      <div className={cls.box} style={{ transform: `rotate(${rotate}deg)` }} />
     </div>
   );
 };

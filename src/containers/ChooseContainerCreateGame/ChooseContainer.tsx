@@ -55,6 +55,7 @@ const ChooseContainer: FC = () => {
       board: cells,
       usersNamesList: characters,
       usersCharacters: charactersObj,
+      zombies,
     };
     const game = new StandardGame(initialObj);
 

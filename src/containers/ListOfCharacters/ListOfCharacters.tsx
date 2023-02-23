@@ -13,7 +13,7 @@ const ListOfCharacters = (props: ListOfCharactersProps) => {
     <div className={classes["list-players"]}>
       <SimpleText text="List of Players:" />
       {playersNumber ? (
-        <ol>
+        <ol className={classes["order-list"]}>
           {Array(playersNumber)
             .fill(null)
             .map((arg, i) => {
