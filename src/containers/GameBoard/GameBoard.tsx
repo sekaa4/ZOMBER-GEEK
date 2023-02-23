@@ -3,15 +3,19 @@ import FieldCellComp from "../../components/Field-cell/FieldCell";
 import StandardGame from "../../entities/Game/StandardGame";
 import { useAppSelector } from "../../hooks/redux";
 import { Character, Chars } from "../../models/Character.type";
-import FieldCell from "../../models/FieldCell.type";
+import { gameSlice } from "../../store/reducers/GameSlice";
 import classes from "./GameBoard.module.scss";
 
-type GameBoardProps = {
-  cells: FieldCell<number>[];
-  characters: Chars | null;
-};
+const GameBoard: FC = () => {
+  const dispatch = useAppDispatch();
+  const { fieldCells } = useAppSelector((state) => state.boardReducer);
+  const { characters } = useAppSelector((state) => state.characterReducer);
+  const { game } = useAppSelector((state) => state.gameReducer);
+  if (game instanceof StandardGame) {
+    game.board = fieldCells;
+    dispatch(gameSlice.actions.writeGameState(game));
+  }
 
-const GameBoard: FC<GameBoardProps> = ({ cells, characters }) => {
   const [activeCell, setActiveCell] = useState<number>(133);
   const [cellsToMove, setCellsToMove] = useState<(number | "")[]>([121, 134]);
   const changeActiveCell = (cellID: number) => {
@@ -52,7 +56,7 @@ const GameBoard: FC<GameBoardProps> = ({ cells, characters }) => {
 
   return (
     <div className={classes.gameField}>
-      {cells.map((item) => (
+      {fieldCells.map((item) => (
         <FieldCellComp
           cell={item}
           isActive={item.id === activeCell}
