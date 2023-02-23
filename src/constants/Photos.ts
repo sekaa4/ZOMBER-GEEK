@@ -1,7 +1,7 @@
-import AlexPhoto from "../assets/images/characters/man.webp";
+import AlexPhoto from "../assets/images/characters/girl.webp";
 import AnitaPhoto from "../assets/images/characters/doctor.webp";
 import MaxPhoto from "../assets/images/characters/boy.webp";
-import MaryPhoto from "../assets/images/characters/girl.webp";
+import PolicemanPhoto from "../assets/images/characters/policemen.webp";
 import JohnnyPhoto from "../assets/images/characters/real_men.webp";
 import NightmarePhoto from "../assets/images/zombies/zombie-nightmare.webp";
 import DefaultZombiePhoto from "../assets/images/zombies/zombie-leg-1.webp";
@@ -25,7 +25,7 @@ export const CharacterPhotos: { [key: string]: any } = {
   Alex: AlexPhoto,
   Anita: AnitaPhoto,
   Max: MaxPhoto,
-  Mary: MaryPhoto,
+  Fred: PolicemanPhoto,
   Johnny: JohnnyPhoto,
 };
 
