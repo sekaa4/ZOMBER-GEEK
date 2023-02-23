@@ -84,7 +84,7 @@ export default abstract class Game {
     this.finishGame = finishGame ?? false;
     this.zombies = zombies ?? [];
     this.nextCharacter = nextCharacter ?? false;
-    this.rollDisabled = rollDisabled ?? false;
+    this.rollDisabled = rollDisabled ?? true;
   }
 
   abstract start(): void;

@@ -43,8 +43,9 @@ const SpinContainer = () => {
     res = randomAction(actionsArr);
 
     if (game) {
-      game.rollDisabled = true;
-      dispatch(gameSlice.actions.writeGameState({ ...game } as StandardGame));
+      const newGame = { ...game };
+      newGame.rollDisabled = true;
+      dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
     }
 
     switch (res[0]) {
