@@ -1,5 +1,5 @@
 import CharacterProps from "../../models/CharacterProps";
-import imgDefault from "../../assets/images/char-cards/default.png";
+import imgDefault from "../../assets/images/char-cards/default.webp";
 import imgCharBigHP from "../../assets/images/char-cards/card-big-hp.webp";
 import imgCharDoctor from "../../assets/images/char-cards/card-healer.webp";
 import imgCharPoliceman from "../../assets/images/char-cards/card-policeman.webp";

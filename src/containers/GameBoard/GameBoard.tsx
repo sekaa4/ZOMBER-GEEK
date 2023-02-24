@@ -30,13 +30,18 @@ const GameBoard: FC = () => {
     const numb = game?.currentCharacter?.currentPositionId;
     const stage = game?.currentCharacter?.stage;
     const name = game?.currentCharacter?.name;
+    // const countOfTurns = game?.currentCharacter?.countOfTurns;
+    console.log(game);
     if (!numb) {
       alert(`Place ${name} on the board `);
     }
     if (numb && stage === "roll") {
       alert(`Roll spin and choose fieldCell for step Character - ${name}`);
     }
-  }, [game?.currentCharacter?.currentPositionId]);
+  }, [
+    game?.currentCharacter?.currentPositionId,
+    game?.currentCharacter?.stage,
+  ]);
 
   return (
     <div className={classes.gameField}>

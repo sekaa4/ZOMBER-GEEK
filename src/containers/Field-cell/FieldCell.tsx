@@ -35,17 +35,20 @@ const FieldCellContainer: FC<FieldCellProp> = ({
   });
 
   const clickHandler = () => {
+    const stage = game?.currentCharacter?.stage;
+    const positionId = game?.currentCharacter?.currentPositionId;
+
     if (isCellToMove) {
       currentCharacter!.currentPositionId = cell.id;
-      if (
-        game?.currentCharacter?.stage === "prepare" &&
-        game.currentCharacter.currentPositionId
-      ) {
+      if (stage === "prepare" && positionId) {
         game!.currentCharacter!.stage = "roll";
         game.rollDisabled = false;
+        setCellsToMoveArray([]);
       }
-      changeActiveCellID(cell.id);
-      setCellsToMoveArray(directions);
+      if (stage === "action" && positionId) {
+        changeActiveCellID(cell.id);
+        setCellsToMoveArray(directions);
+      }
       dispatch(gameSlice.actions.writeGameState({ ...game } as StandardGame));
     }
   };
