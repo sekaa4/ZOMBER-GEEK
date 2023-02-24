@@ -26,17 +26,21 @@ const GameBoard: FC = () => {
   if (!game?.currentCharacter?.currentPositionId && cellsToMove.length === 0) {
     setCellsToMove([121, 122, 133, 134]);
   }
+
   useEffect(() => {
     const numb = game?.currentCharacter?.currentPositionId;
     const stage = game?.currentCharacter?.stage;
     const name = game?.currentCharacter?.name;
-    // const countOfTurns = game?.currentCharacter?.countOfTurns;
-    console.log(game);
+    const turns = game?.currentCharacter?.countOfTurns;
+
     if (!numb) {
       alert(`Place ${name} on the board `);
     }
     if (numb && stage === "roll") {
       alert(`Roll spin and choose fieldCell for step Character - ${name}`);
+    }
+    if (turns === 0 && stage === "action") {
+      setCellsToMove([]);
     }
   }, [
     game?.currentCharacter?.currentPositionId,

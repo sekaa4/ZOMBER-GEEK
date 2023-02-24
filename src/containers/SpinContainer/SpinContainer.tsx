@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import RollSpin from "../../components/rollSpin/RollSpin";
+import CharacterFastest from "../../entities/Character/CharacterFastest";
 import StandardGame from "../../entities/Game/StandardGame";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Character } from "../../models/Character.type";
@@ -42,12 +43,6 @@ const SpinContainer = () => {
     const randomNum = randomNumber(min, max);
     res = randomAction(actionsArr);
 
-    if (game) {
-      const newGame = { ...game };
-      newGame.rollDisabled = true;
-      dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
-    }
-
     switch (res[0]) {
       case 1: {
         deg = 360 * randomNum + 82;
@@ -79,6 +74,14 @@ const SpinContainer = () => {
         setCountOfTurnHandler(res[0]);
         curCharacter.stage = "action";
         curCharacter.countOfTurns = res[0] as number;
+        if (curCharacter instanceof CharacterFastest) {
+          curCharacter.countOfTurns += 1;
+        }
+        if (game) {
+          const newGame = { ...game };
+          newGame.rollDisabled = true;
+          dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
+        }
       }
     }, delayTime);
   };

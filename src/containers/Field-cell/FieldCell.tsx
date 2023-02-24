@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import FieldCell from "../../models/FieldCell.type";
 import getAdjacentCells from "../../utils/getAdjacentCells";
 import Directions from "../../models/Directions.type";
@@ -34,21 +34,31 @@ const FieldCellContainer: FC<FieldCellProp> = ({
     return cell.characterName ? "" : cellId;
   });
 
+  useEffect(() => {
+    const stage = game?.currentCharacter?.stage;
+    if (stage === "action" && isActive) {
+      setCellsToMoveArray(directions);
+    }
+  }, [game?.currentCharacter?.stage]);
+
   const clickHandler = () => {
     const stage = game?.currentCharacter?.stage;
     const positionId = game?.currentCharacter?.currentPositionId;
+    const turns = game?.currentCharacter?.countOfTurns;
 
     if (isCellToMove) {
       currentCharacter!.currentPositionId = cell.id;
-      if (stage === "prepare" && positionId) {
+
+      if (stage === "prepare" && !positionId) {
         game!.currentCharacter!.stage = "roll";
-        game.rollDisabled = false;
+        game!.rollDisabled = false;
         setCellsToMoveArray([]);
       }
-      if (stage === "action" && positionId) {
-        changeActiveCellID(cell.id);
+      if (stage === "action" && positionId && turns !== 0) {
         setCellsToMoveArray(directions);
+        game!.currentCharacter!.countOfTurns -= 1;
       }
+      changeActiveCellID(cell.id);
       dispatch(gameSlice.actions.writeGameState({ ...game } as StandardGame));
     }
   };
