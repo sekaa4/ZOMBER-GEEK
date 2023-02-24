@@ -44,5 +44,7 @@ export default class CharacterFastest extends Character {
     CharacterFastest.instance = this;
   }
 
-  move() {}
+  move() {
+    this.countOfTurns! -= 1;
+  }
 }
