@@ -48,7 +48,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
     if (stage === "action" && isActive) {
       setCellsToMoveArray(directions);
     }
-  }, [game?.currentCharacter?.stage]);
+  }, [game?.currentCharacter?.stage, cell.flipCell]);
 
   const clickHandler = () => {
     const stage = game?.currentCharacter?.stage;

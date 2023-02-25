@@ -54,6 +54,7 @@ const GameBoard: FC = () => {
   }, [
     game?.currentCharacter?.currentPositionId,
     game?.currentCharacter?.stage,
+    game?.board,
   ]);
 
   return (
