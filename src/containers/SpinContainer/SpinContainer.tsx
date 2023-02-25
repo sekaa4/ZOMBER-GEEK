@@ -24,6 +24,7 @@ const SpinContainer = () => {
 
   const dispatch = useAppDispatch();
   const { game } = useAppSelector((state) => state.gameReducer);
+  const newGame = structuredClone(game) as StandardGame;
 
   let deg = 0;
   let res: (string | number)[];
@@ -37,6 +38,9 @@ const SpinContainer = () => {
   };
 
   const rotateSpin = () => {
+    newGame.rollDisabled = true;
+    dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
+
     const min = 4;
     const max = 15;
 
@@ -69,7 +73,8 @@ const SpinContainer = () => {
     setCountOfTurnHandler("Wait result...");
     setTimeout(() => {
       if (game) {
-        const curCharacter = game.currentCharacter as Character;
+        const updateGame = structuredClone(game) as StandardGame;
+        const curCharacter = updateGame.currentCharacter as Character;
         setActionHandler(res[1] as string);
         setCountOfTurnHandler(res[0]);
         curCharacter.stage = "action";
@@ -77,11 +82,9 @@ const SpinContainer = () => {
         if (curCharacter instanceof CharacterFastest) {
           curCharacter.countOfTurns += 1;
         }
-        if (game) {
-          const newGame = { ...game };
-          newGame.rollDisabled = true;
-          dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
-        }
+
+        updateGame.rollDisabled = true;
+        dispatch(gameSlice.actions.writeGameState(updateGame));
       }
     }, delayTime);
   };
