@@ -11,11 +11,7 @@ const GameBoard: FC = () => {
   const { fieldCells } = useAppSelector((state) => state.boardReducer);
   const { characters } = useAppSelector((state) => state.characterReducer);
   const { game } = useAppSelector((state) => state.gameReducer);
-
-  if (game instanceof StandardGame) {
-    game.board = fieldCells;
-    dispatch(gameSlice.actions.writeGameState(game));
-  }
+  const newGame = structuredClone(game) as StandardGame;
 
   const [activeCell, setActiveCell] = useState<number | null>(null);
   const [cellsToMove, setCellsToMove] = useState<(number | "")[]>([]);
@@ -32,6 +28,7 @@ const GameBoard: FC = () => {
     const stage = game?.currentCharacter?.stage;
     const name = game?.currentCharacter?.name;
     const turns = game?.currentCharacter?.countOfTurns;
+    const curCell = game?.board.find((cell) => cell.id === numb);
 
     if (!numb) {
       alert(`Place ${name} on the board `);
@@ -41,6 +38,18 @@ const GameBoard: FC = () => {
     }
     if (turns === 0 && stage === "action") {
       setCellsToMove([]);
+    }
+    if (
+      game &&
+      turns === 0 &&
+      !curCell?.holdItemID &&
+      !curCell?.zombieID &&
+      curCell?.characterName &&
+      stage === "action"
+    ) {
+      newGame.currentCharacter!.stage = "finish";
+      newGame.nextCharacter = true;
+      dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
     }
   }, [
     game?.currentCharacter?.currentPositionId,

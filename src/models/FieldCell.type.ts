@@ -1,8 +1,9 @@
+import { CharacterName } from "./Character.type";
 import ItemsNames from "./ItemsNames.type";
 
 interface FieldCell<CellIDType> {
   id: CellIDType;
-  characterName: string | null;
+  characterName: CharacterName | null;
   zombieID: number | null | undefined;
   holdItemID: ItemsNames | null;
   left: boolean;

@@ -57,6 +57,7 @@ const ChooseContainer: FC = () => {
       usersCharacters: charactersObj,
       zombies,
     };
+
     const game = new StandardGame(initialObj);
 
     dispatch(boardSlice.actions.writeFieldCells(cells));

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import StandardGame from "../../entities/Game/StandardGame";
 import FieldCellComp from "../../components/FieldCellComp/FieldCellComp";
 import { gameSlice } from "../../store/reducers/GameSlice";
+import { CharacterName } from "../../models/Character.type";
 
 type FieldCellProp = {
   cell: FieldCell<number>;
@@ -27,12 +28,20 @@ const FieldCellContainer: FC<FieldCellProp> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { game } = useAppSelector((state) => state.gameReducer);
-  const { currentCharacter } = game as StandardGame;
+  const newGame = structuredClone(game) as StandardGame;
+  const { currentCharacter } = newGame;
 
   const directions = directionsValues.map((str) => {
     const cellId = cell[str] ? getAdjacentCells(str, cell.id) : "";
     return cell.characterName ? "" : cellId;
   });
+
+  const curCell = newGame?.board.find(
+    (cur) => cell.id === cur.id,
+  ) as FieldCell<number>;
+  const prevCell = newGame?.board.find(
+    (cur) => newGame.currentCharacter?.currentPositionId === cur.id,
+  ) as FieldCell<number>;
 
   useEffect(() => {
     const stage = game?.currentCharacter?.stage;
@@ -47,19 +56,22 @@ const FieldCellContainer: FC<FieldCellProp> = ({
     const turns = game?.currentCharacter?.countOfTurns;
 
     if (isCellToMove) {
+      currentCharacter!.active = true;
       currentCharacter!.currentPositionId = cell.id;
+      if (prevCell) prevCell.characterName = null;
+      curCell.characterName = currentCharacter?.name as CharacterName;
 
       if (stage === "prepare" && !positionId) {
-        game!.currentCharacter!.stage = "roll";
-        game!.rollDisabled = false;
+        newGame!.currentCharacter!.stage = "roll";
+        newGame!.rollDisabled = false;
         setCellsToMoveArray([]);
       }
       if (stage === "action" && positionId && turns !== 0) {
         setCellsToMoveArray(directions);
-        game!.currentCharacter!.countOfTurns -= 1;
+        newGame!.currentCharacter!.countOfTurns -= 1;
       }
       changeActiveCellID(cell.id);
-      dispatch(gameSlice.actions.writeGameState({ ...game } as StandardGame));
+      dispatch(gameSlice.actions.writeGameState(newGame));
     }
   };
   return (
