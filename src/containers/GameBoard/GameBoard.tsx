@@ -3,20 +3,20 @@ import FieldCellContainer from "../Field-cell/FieldCell";
 import StandardGame from "../../entities/Game/StandardGame";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { gameSlice } from "../../store/reducers/GameSlice";
-import getCharNameFromId from "../../utils/getCharNameFromId";
 import classes from "./GameBoard.module.scss";
 
 const GameBoard: FC = () => {
   const dispatch = useAppDispatch();
-  const { fieldCells } = useAppSelector((state) => state.boardReducer);
+  // const { fieldCells } = useAppSelector((state) => state.boardReducer);
   const { characters } = useAppSelector((state) => state.characterReducer);
   const { game } = useAppSelector((state) => state.gameReducer);
   const newGame = structuredClone(game) as StandardGame;
+  const fieldCells = newGame.board;
 
-  const [activeCell, setActiveCell] = useState<number | null>(null);
+  const activeCell = newGame.board.find((item) => item.active === true) || null;
   const [cellsToMove, setCellsToMove] = useState<(number | "")[]>([]);
   const changeActiveCell = (cellID: number) => {
-    setActiveCell(cellID);
+    // setActiveCell(cellID);
   };
 
   if (!game?.currentCharacter?.currentPositionId && cellsToMove.length === 0) {
@@ -61,9 +61,9 @@ const GameBoard: FC = () => {
       {fieldCells.map((item) => (
         <FieldCellContainer
           cell={item}
-          isActive={item.id === activeCell}
+          isActive={activeCell ? item.id === activeCell.id : false}
           isCellToMove={cellsToMove.includes(item.id)}
-          charName={getCharNameFromId(characters, item.id)}
+          charName={item.characterName}
           changeActiveCellID={changeActiveCell}
           setCellsToMoveArray={setCellsToMove}
           key={`cellID: ${item.id}`}

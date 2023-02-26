@@ -33,6 +33,16 @@ const StateDescription = () => {
       newGame.currentCharacter = nextCharacter;
       newGame.nextCharacter = false;
       newGame.rollDisabled = false;
+
+      // change active cell to current char
+      newGame.board.forEach((cell) => {
+        const c = cell;
+        c.active = false;
+        if (c.characterName === newGame.currentCharacter!.name) {
+          c.active = true;
+        }
+      });
+      // dispatch board
       dispatch(gameSlice.actions.writeGameState(newGame));
     }
   };

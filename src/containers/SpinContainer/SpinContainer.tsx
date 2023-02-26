@@ -80,6 +80,7 @@ const SpinContainer = () => {
         curCharacter.stage = "action";
         curCharacter.countOfTurns = res[0] as number;
         if (curCharacter instanceof CharacterFastest) {
+          console.log("fastest");
           curCharacter.countOfTurns += 1;
         }
 

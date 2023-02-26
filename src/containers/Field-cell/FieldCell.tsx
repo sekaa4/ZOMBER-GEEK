@@ -33,7 +33,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
 
   const directions = directionsValues.map((str) => {
     const cellId = cell[str] ? getAdjacentCells(str, cell.id) : "";
-    return cell.characterName ? "" : cellId;
+    return cell.active ? cellId : "";
   });
 
   const curCell = newGame?.board.find(
@@ -47,30 +47,53 @@ const FieldCellContainer: FC<FieldCellProp> = ({
     const stage = game?.currentCharacter?.stage;
     if (stage === "action" && isActive) {
       setCellsToMoveArray(directions);
+      console.log(directions);
     }
-  }, [game?.currentCharacter?.stage]);
+  }, [
+    game?.currentCharacter?.stage,
+    game?.currentCharacter?.countOfTurns,
+    cell.flipCell,
+  ]);
 
   const clickHandler = () => {
-    const stage = game?.currentCharacter?.stage;
-    const positionId = game?.currentCharacter?.currentPositionId;
-    const turns = game?.currentCharacter?.countOfTurns;
+    const stage = newGame?.currentCharacter?.stage;
+    const positionId = newGame?.currentCharacter?.currentPositionId;
+    const turns = newGame?.currentCharacter?.countOfTurns;
 
     if (isCellToMove) {
       currentCharacter!.active = true;
       currentCharacter!.currentPositionId = cell.id;
-      if (prevCell) prevCell.characterName = null;
+      if (prevCell) {
+        prevCell.characterName = null;
+        prevCell.active = false;
+      }
       curCell.characterName = currentCharacter?.name as CharacterName;
+      curCell.active = true;
 
+      // if we choose first position
       if (stage === "prepare" && !positionId) {
         newGame!.currentCharacter!.stage = "roll";
         newGame!.rollDisabled = false;
         setCellsToMoveArray([]);
       }
+      // if we go to an empty cell
       if (stage === "action" && positionId && turns !== 0) {
-        setCellsToMoveArray(directions);
         newGame!.currentCharacter!.countOfTurns -= 1;
       }
-      changeActiveCellID(cell.id);
+      // if we go to an cell with zombie
+      if (stage === "action" && cell.zombieID) {
+        const newCell = newGame.board.find((item) => item.id === cell.id);
+        newCell!.flipCell = !newCell?.flipCell;
+        newGame!.currentCharacter!.countOfTurns = 0;
+        setCellsToMoveArray([]);
+      }
+      // if we go to an cell with item
+      if (stage === "action" && cell.holdItemID) {
+        const newCell = newGame.board.find((item) => item.id === cell.id);
+        newCell!.flipCell = !newCell?.flipCell;
+        newGame!.currentCharacter!.countOfTurns = 0;
+        setCellsToMoveArray([]);
+      }
       dispatch(gameSlice.actions.writeGameState(newGame));
     }
   };
@@ -78,8 +101,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
     <FieldCellComp
       flipCell={cell.flipCell}
       zombieId={cell.zombieID}
-      charName={cell.characterName}
-      currentCharName={currentCharacter!.name}
+      charName={charName}
       holdItemId={cell.holdItemID}
       isActive={isActive}
       isCellToMove={isCellToMove}

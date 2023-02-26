@@ -13,7 +13,6 @@ type FieldCellCompProp = {
   flipCell: boolean;
   zombieId: number | null | undefined;
   charName: string | null;
-  currentCharName: string | null;
   holdItemId: ItemsNames | null;
   isActive: boolean;
   isCellToMove: boolean;
@@ -23,7 +22,6 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
   flipCell,
   zombieId,
   charName,
-  currentCharName,
   holdItemId,
   isActive,
   isCellToMove,
@@ -35,7 +33,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
     isActive ? classes.fieldCellActive : "",
     isCellToMove ? classes.fieldCellToMove : "",
   ].join(" ");
-  if (flipCell && (zombieId || charName || holdItemId)) {
+  if (flipCell && (zombieId || holdItemId)) {
     return (
       <button
         type="button"
@@ -46,7 +44,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
       </button>
     );
   }
-  if (!flipCell && zombieId) {
+  if (!flipCell && zombieId && !charName) {
     const currentZombie = zombies.filter((item) => item.id === zombieId);
     return (
       <button
@@ -62,7 +60,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
       </button>
     );
   }
-  if (!flipCell && holdItemId) {
+  if (!flipCell && holdItemId && !charName) {
     return (
       <button
         type="button"
@@ -77,7 +75,8 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
       </button>
     );
   }
-  if (currentCharName && isActive) {
+  if (!flipCell && charName && (zombieId || holdItemId)) {
+    const currentZombie = zombies.filter((item) => item.id === zombieId);
     return (
       <button
         type="button"
@@ -85,9 +84,33 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
         onClick={clickHandlerCallback}
       >
         <img
-          src={CharacterPhotos[currentCharName]}
+          src={CharacterPhotos[charName]}
+          alt={`${charName} card`}
+          className={classes.charImage}
+        />
+        <img
+          src={
+            holdItemId
+              ? ItemsAndWeaponsPhotos[holdItemId]
+              : ZombiePhotos[currentZombie[0].name]
+          }
           alt={`${holdItemId} card`}
           className={classes.zombieItemImage}
+        />
+      </button>
+    );
+  }
+  if (flipCell && charName && !(zombieId || holdItemId)) {
+    return (
+      <button
+        type="button"
+        className={classesNames}
+        onClick={clickHandlerCallback}
+      >
+        <img
+          src={CharacterPhotos[charName]}
+          alt={`${holdItemId} card`}
+          className={classes.charImage}
         />
       </button>
     );
