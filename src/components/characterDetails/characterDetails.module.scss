@@ -1,6 +1,27 @@
 .character {
+  display: flex;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 30px;
   background-color: #f1ee8e;
+  justify-content: space-between;
+}
+
+.character-img {
+  display: block;
+  object-fit: contain;
+  height: 18vw;
+}
+
+.items {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.main-information {
+  text-align: center;
+}
+
+.description {
+  width: 100%;
 }

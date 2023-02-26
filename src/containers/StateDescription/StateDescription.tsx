@@ -15,6 +15,7 @@ const StateDescription = () => {
   const { game } = useAppSelector((state) => state.gameReducer);
   const dispatch = useAppDispatch();
   const newGame = structuredClone(game) as StandardGame;
+  const { turn } = newGame;
   const isDisabled = !newGame?.nextCharacter;
 
   const changeStatus = () => {
@@ -50,7 +51,7 @@ const StateDescription = () => {
   return (
     <div className={classes["state-description"]}>
       <GameTime />
-      <GameTurns />
+      <GameTurns turn={turn} />
       <GameDescription description="GameAction" value={action} />
       <GameDescription description="GamePointsOfAction" value={countOfTurn} />
       <Button

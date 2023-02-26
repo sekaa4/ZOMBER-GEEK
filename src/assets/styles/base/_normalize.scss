@@ -85,3 +85,17 @@ h6 {
   font-size: inherit;
   font-weight: inherit;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(221, 218, 213);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3f4244;
+  border-radius: 20px;
+  border: 2px solid rgb(221, 218, 213);
+}

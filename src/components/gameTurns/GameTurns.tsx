@@ -1,5 +1,10 @@
-const GameTurns = () => {
-  return <div>GameTurns: 0</div>;
+interface GameTurnsProps {
+  turn: number;
+}
+
+const GameTurns = (props: GameTurnsProps) => {
+  const { turn } = props;
+  return <div>GameTurns: {turn}</div>;
 };
 
 export default GameTurns;
