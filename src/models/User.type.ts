@@ -1,6 +1,18 @@
-interface User {
-  id: number;
-  name: string;
+export interface User {
+  userName: string;
+  password: string;
 }
 
-export default User;
+type Errors = [
+  {
+    value: string;
+    msg: string;
+    param: string;
+    location: string;
+  },
+];
+
+export interface RegistrationResponse {
+  message: string;
+  errors?: Errors;
+}

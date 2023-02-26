@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import User from "../models/User.type";
 import URL from "../models/URL";
 import ConstantsString from "../models/ConstantsString";
 import Methods from "../models/Methods";
+import { RegistrationResponse, User } from "../models/User.type";
 
 const userAPI = createApi({
   reducerPath: `${ConstantsString.USER_API}`,
@@ -18,9 +18,9 @@ const userAPI = createApi({
       }),
       providesTags: () => [ConstantsString.USER],
     }),
-    createUser: build.mutation<User, Omit<User, `${ConstantsString.ID}`>>({
+    createUser: build.mutation<RegistrationResponse, User>({
       query: (user) => ({
-        url: `${URL.USERS}`,
+        url: `${URL.SIGNUP}`,
         method: `${Methods.POST}`,
         body: user,
       }),
@@ -28,7 +28,7 @@ const userAPI = createApi({
     }),
     updateUser: build.mutation<User, User>({
       query: (user) => ({
-        url: `${URL.USERS}/${user.id}`,
+        url: `${URL.USERS}/${user.userName}`,
         method: `${Methods.PUT}`,
         body: user,
       }),
@@ -36,7 +36,7 @@ const userAPI = createApi({
     }),
     deleteUser: build.mutation<User, User>({
       query: (user) => ({
-        url: `${URL.USERS}/${user.id}`,
+        url: `${URL.USERS}/${user.userName}`,
         method: `${Methods.DELETE}`,
         body: user,
       }),
