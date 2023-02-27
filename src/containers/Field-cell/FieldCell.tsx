@@ -9,7 +9,6 @@ import { gameSlice } from "../../store/reducers/GameSlice";
 import { CharacterName } from "../../models/Character.type";
 import Items from "../../entities/Items/Items";
 import Weapons from "../../entities/Weapon/Weapons";
-import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
 
 type FieldCellProp = {
   cell: FieldCell<number>;

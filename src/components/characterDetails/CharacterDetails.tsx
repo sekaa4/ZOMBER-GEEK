@@ -68,7 +68,6 @@ const CharacterDetails: FC = () => {
               if (
                 value > 0 &&
                 character.stage === "fight" &&
-                // newGame.kindOfItems === "melee" &&
                 (key === "knifes" || key === "axes")
               )
                 disabled = false;
