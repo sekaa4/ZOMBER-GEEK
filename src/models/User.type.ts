@@ -16,3 +16,7 @@ export interface RegistrationResponse {
   message: string;
   errors?: Errors;
 }
+
+export interface LoginResponse {
+  token: string;
+}
