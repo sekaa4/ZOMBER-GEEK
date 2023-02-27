@@ -29,15 +29,12 @@ export default class CharacterWithKnife extends Character {
       return CharacterWithKnife.instance;
     }
 
-    const baseKnife = {
-      knifes: 1,
-    };
-
     super(
       CharacterProps.CharacterNameWithKnife,
       health ?? CharacterProps.CharacterDefaultHP,
     );
-    this.weapons = new Weapons(weapons ?? baseKnife);
+    this.weapons = new Weapons(weapons);
+    this.weapons.knifes! += 1;
     this.items = new Items(items);
     this.countOfTurns = 0;
     this.currentPositionId = null;

@@ -13,21 +13,21 @@ const mochaWeapons: IWeapons = {
 };
 
 export default class Weapons {
-  [ItemsAndWeaponsNames.GRENADES]?: number;
+  [ItemsAndWeaponsNames.GRENADES]: number;
 
-  [ItemsAndWeaponsNames.KNIFES]?: number;
+  [ItemsAndWeaponsNames.KNIFES]: number;
 
-  [ItemsAndWeaponsNames.CROSSBOWS]?: number;
+  [ItemsAndWeaponsNames.CROSSBOWS]: number;
 
-  [ItemsAndWeaponsNames.AXES]?: number;
+  [ItemsAndWeaponsNames.AXES]: number;
 
-  [ItemsAndWeaponsNames.HANDGUNS]?: number;
+  [ItemsAndWeaponsNames.HANDGUNS]: number;
 
-  [ItemsAndWeaponsNames.ASSAULTRIFLES]?: number;
+  [ItemsAndWeaponsNames.ASSAULTRIFLES]: number;
 
-  [ItemsAndWeaponsNames.SHOTGUNS]?: number;
+  [ItemsAndWeaponsNames.SHOTGUNS]: number;
 
-  [ItemsAndWeaponsNames.BFG]?: number;
+  [ItemsAndWeaponsNames.BFG]: number;
 
   constructor({
     grenades,
@@ -39,21 +39,13 @@ export default class Weapons {
     shotguns,
     BFG,
   }: IWeapons = mochaWeapons) {
-    this[ItemsAndWeaponsNames.GRENADES] =
-      grenades ?? mochaWeapons[ItemsAndWeaponsNames.GRENADES];
-    this[ItemsAndWeaponsNames.KNIFES] =
-      knifes ?? mochaWeapons[ItemsAndWeaponsNames.KNIFES];
-    this[ItemsAndWeaponsNames.CROSSBOWS] =
-      crossbows ?? mochaWeapons[ItemsAndWeaponsNames.CROSSBOWS];
-    this[ItemsAndWeaponsNames.AXES] =
-      axes ?? mochaWeapons[ItemsAndWeaponsNames.AXES];
-    this[ItemsAndWeaponsNames.HANDGUNS] =
-      handguns ?? mochaWeapons[ItemsAndWeaponsNames.HANDGUNS];
-    this[ItemsAndWeaponsNames.ASSAULTRIFLES] =
-      assaultRifles ?? mochaWeapons[ItemsAndWeaponsNames.ASSAULTRIFLES];
-    this[ItemsAndWeaponsNames.SHOTGUNS] =
-      shotguns ?? mochaWeapons[ItemsAndWeaponsNames.SHOTGUNS];
-    this[ItemsAndWeaponsNames.BFG] =
-      BFG ?? mochaWeapons[ItemsAndWeaponsNames.BFG];
+    this[ItemsAndWeaponsNames.GRENADES] = grenades;
+    this[ItemsAndWeaponsNames.KNIFES] = knifes;
+    this[ItemsAndWeaponsNames.CROSSBOWS] = crossbows;
+    this[ItemsAndWeaponsNames.AXES] = axes;
+    this[ItemsAndWeaponsNames.HANDGUNS] = handguns;
+    this[ItemsAndWeaponsNames.ASSAULTRIFLES] = assaultRifles;
+    this[ItemsAndWeaponsNames.SHOTGUNS] = shotguns;
+    this[ItemsAndWeaponsNames.BFG] = BFG;
   }
 }
