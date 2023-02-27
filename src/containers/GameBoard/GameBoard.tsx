@@ -4,34 +4,33 @@ import StandardGame from "../../entities/Game/StandardGame";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { gameSlice } from "../../store/reducers/GameSlice";
 import classes from "./GameBoard.module.scss";
+import { Character } from "../../models/Character.type";
+import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
 
 const GameBoard: FC = () => {
   const dispatch = useAppDispatch();
-  // const { fieldCells } = useAppSelector((state) => state.boardReducer);
-  const { characters } = useAppSelector((state) => state.characterReducer);
   const { game } = useAppSelector((state) => state.gameReducer);
   const newGame = structuredClone(game) as StandardGame;
   const fieldCells = newGame.board;
 
   const activeCell = newGame.board.find((item) => item.active === true) || null;
   const [cellsToMove, setCellsToMove] = useState<(number | "")[]>([]);
-  const changeActiveCell = (cellID: number) => {
-    // setActiveCell(cellID);
-  };
+  const changeActiveCell = () => {};
 
   if (!game?.currentCharacter?.currentPositionId && cellsToMove.length === 0) {
     setCellsToMove([121, 122, 133, 134]);
   }
 
   useEffect(() => {
-    const numb = game?.currentCharacter?.currentPositionId;
-    const stage = game?.currentCharacter?.stage;
-    const name = game?.currentCharacter?.name;
-    const turns = game?.currentCharacter?.countOfTurns;
+    const currentCharacter = game?.currentCharacter as Character;
+    const numb = currentCharacter?.currentPositionId;
+    const stage = currentCharacter?.stage;
+    const name = currentCharacter?.name;
+    const turns = currentCharacter?.countOfTurns;
     const curCell = game?.board.find((cell) => cell.id === numb);
 
     if (!numb) {
-      alert(`Place ${name} on the board `);
+      setTimeout(() => alert(`Place ${name} on the board `), 1000);
     }
     if (
       numb &&
@@ -42,7 +41,13 @@ const GameBoard: FC = () => {
       alert(`Roll spin and choose fieldCell for step Character - ${name}`);
     }
     if (numb && stage === "fight" && curCell?.zombieID) {
-      alert(`Roll spin and fight with zombie- ${name}`);
+      const grenades = currentCharacter!.weapons[ItemsAndWeaponsNames.GRENADES];
+
+      if (grenades) {
+        alert(
+          "You have grenades! If you want, you can use it or just roll spin and use it after...",
+        );
+      } else alert(`Roll spin and fight with zombie- ${name}`);
     }
     if (turns === 0 && stage === "action") {
       setCellsToMove([]);

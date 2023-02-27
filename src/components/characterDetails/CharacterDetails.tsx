@@ -1,13 +1,16 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
+import ActionContext from "../../containers/ActionContainer/ActionContext";
 import StandardGame from "../../entities/Game/StandardGame";
 import { useAppSelector } from "../../hooks/redux";
 import { Character } from "../../models/Character.type";
+import Button from "../button/Button";
 import classes from "./characterDetails.module.scss";
 
 const CharacterDetails: FC = () => {
   const { game } = useAppSelector((state) => state.gameReducer);
   const newGame = structuredClone(game) as StandardGame;
   const character = newGame.currentCharacter as Character;
+  const { changeCountItemsHandler } = useContext(ActionContext);
 
   return (
     <div className={classes.character}>
@@ -30,19 +33,68 @@ const CharacterDetails: FC = () => {
         <div className={classes.items}>
           <ul>
             Character items:
-            {Object.entries(character.items).map(([key, value]) => (
-              <li key={key}>
-                {key}: {value}
-              </li>
-            ))}
+            {Object.entries(character.items).map(([key, value]) => {
+              let disabled = true;
+              const classesArr = [classes["items-button"]];
+              if (key === "boards") return <li key={key} />;
+              if (value > 0) disabled = false;
+              if (key !== "firstAidKits") {
+                classesArr.push(classes["win-items"]);
+              }
+              return (
+                <li key={key}>
+                  <Button
+                    disabled={disabled}
+                    value={key}
+                    title={`${key}: ${value}`}
+                    classNames={classesArr}
+                    onClickHandler={changeCountItemsHandler}
+                  />
+                </li>
+              );
+            })}
           </ul>
           <ul>
             Character weapons:
-            {Object.entries(character.weapons).map(([key, value]) => (
-              <li key={key}>
-                {key}: {value}
-              </li>
-            ))}
+            {Object.entries(character.weapons).map(([key, value]) => {
+              let disabled = true;
+              const classesArr = [classes["items-button"]];
+              if (
+                value > 0 &&
+                character.stage === "fight" &&
+                key === "grenades"
+              )
+                disabled = false;
+              if (
+                value > 0 &&
+                character.stage === "fight" &&
+                // newGame.kindOfItems === "melee" &&
+                (key === "knifes" || key === "axes")
+              )
+                disabled = false;
+              if (
+                value > 0 &&
+                character.stage === "fight" &&
+                newGame.kindOfItems === "firearm" &&
+                key !== "knifes" &&
+                key !== "axes"
+              )
+                disabled = false;
+              if (key === "knifes" || key === "axes") {
+                classesArr.push(classes["win-items"]);
+              }
+              return (
+                <li key={key}>
+                  <Button
+                    value={key}
+                    disabled={disabled}
+                    title={`${key}: ${value}`}
+                    classNames={classesArr}
+                    onClickHandler={changeCountItemsHandler}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

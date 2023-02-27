@@ -6,7 +6,8 @@ interface ButtonProps {
   title?: string;
   disabled?: boolean;
   classNames?: string[];
-  onClickHandler?: () => void;
+  value?: string;
+  onClickHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button: FC<ButtonProps> = (props: ButtonProps) => {
@@ -15,6 +16,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
     disabled,
     classNames = [],
     onClickHandler,
+    value = "",
   } = props;
 
   return (
@@ -23,6 +25,7 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
       className={[classes.button, ...classNames].join(" ")}
       disabled={disabled}
       onClick={onClickHandler}
+      value={value}
     >
       {title}
     </button>

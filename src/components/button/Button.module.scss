@@ -18,8 +18,8 @@
   }
 
   &:disabled {
-    background: var(--color-hovered);
-    border-color: var(--color-hovered);
+    background: var(--color-disabled);
+    border-color: var(--color-disabled);
     cursor: default;
   }
 }

@@ -5,6 +5,7 @@ import StandardGame from "../../entities/Game/StandardGame";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Character } from "../../models/Character.type";
 import CharacterProps from "../../models/CharacterProps";
+import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
 import Pages from "../../models/Pages";
 import { gameSlice } from "../../store/reducers/GameSlice";
 import randomNumber from "../../utils/randomNumber";
@@ -14,7 +15,7 @@ import delayTime from "./constants";
 const actionsArr = [
   [1, "teeth"],
   [2, "runner"],
-  [3, "mellee weapon"],
+  [3, "melee weapon"],
   [4, "firearm"],
   [1, "teeth"],
   [2, "runner"],
@@ -28,8 +29,6 @@ const SpinContainer = () => {
   const dispatch = useAppDispatch();
   const { game } = useAppSelector((state) => state.gameReducer);
   const newGame = structuredClone(game) as StandardGame;
-  const { action, countOfTurn, changeStatus, turn, isDisabled } =
-    useContext(ActionContext);
 
   let deg = 0;
   let res: (string | number)[];
@@ -79,13 +78,13 @@ const SpinContainer = () => {
 
     setTimeout(() => {
       if (game) {
-        const updateGame = structuredClone(game) as StandardGame;
+        const updateGame = structuredClone(newGame) as StandardGame;
         const curCharacter = updateGame.currentCharacter as Character;
         const numb = updateGame?.currentCharacter?.currentPositionId;
         const curCell = updateGame?.board.find((cell) => cell.id === numb);
         const lifeListNames = updateGame.usersNamesLifeList;
-        const { health, stage } = curCharacter;
-        updateGame.rollDisabled = false;
+        const { health, stage, weapons } = curCharacter;
+        updateGame.rollDisabled = true;
 
         setActionHandler(res[1] as string);
         setCountOfTurnHandler(res[0]);
@@ -105,6 +104,8 @@ const SpinContainer = () => {
           switch (res[1]) {
             case "teeth": {
               curCharacter.health = health > 0 ? health - 1 : 0;
+              alert(`You lost <1> health press spin again`);
+              updateGame.kindOfItems = null;
 
               if (!curCharacter.health) {
                 curCharacter.stage = "death";
@@ -121,8 +122,6 @@ const SpinContainer = () => {
                     (name) => name !== curCharacter.name,
                   );
                   alert("You died, press 'End of Turn' button");
-                  // dispatch(gameSlice.actions.writeGameState(updateGame));
-                  // return;
                 }
               } else {
                 updateGame.nextCharacter = false;
@@ -131,16 +130,48 @@ const SpinContainer = () => {
               break;
             }
             case "runner": {
-              // curCharacter.stage = "action";
+              curCharacter.stage = "action";
+              updateGame.rollDisabled = false;
+              updateGame.kindOfItems = null;
               alert(
                 `Roll spin and choose fieldCell for step Character - ${curCharacter.name}`,
               );
               break;
             }
-            case "mellee weapon": {
+            case "melee weapon": {
+              const knife = weapons[ItemsAndWeaponsNames.KNIFES];
+              const axes = weapons[ItemsAndWeaponsNames.AXES];
+              updateGame.kindOfItems = "melee";
+
+              if (knife || axes) {
+                curCharacter.stage = "finish";
+                updateGame.nextCharacter = true;
+                curCell.zombieID = null;
+                curCell.flipCell = true;
+                alert(
+                  `You use ${
+                    knife
+                      ? ItemsAndWeaponsNames.KNIFES
+                      : ItemsAndWeaponsNames.AXES
+                  } and killing zombie press 'End of Turn'`,
+                );
+              } else updateGame.rollDisabled = false;
+
               break;
             }
             case "firearm": {
+              const crossbows = weapons[ItemsAndWeaponsNames.CROSSBOWS];
+              const handguns = weapons[ItemsAndWeaponsNames.HANDGUNS];
+              const assaultRifles = weapons[ItemsAndWeaponsNames.ASSAULTRIFLES];
+              const shotguns = weapons[ItemsAndWeaponsNames.SHOTGUNS];
+              const BFG = weapons[ItemsAndWeaponsNames.BFG];
+              if (crossbows || handguns || assaultRifles || shotguns || BFG) {
+                alert(
+                  `You can use "firearm" and killing zombie or press 'SPIN'`,
+                );
+                updateGame.kindOfItems = "firearm";
+                updateGame.rollDisabled = false;
+              }
               break;
             }
             default:

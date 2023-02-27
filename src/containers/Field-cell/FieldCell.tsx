@@ -9,6 +9,7 @@ import { gameSlice } from "../../store/reducers/GameSlice";
 import { CharacterName } from "../../models/Character.type";
 import Items from "../../entities/Items/Items";
 import Weapons from "../../entities/Weapon/Weapons";
+import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
 
 type FieldCellProp = {
   cell: FieldCell<number>;
@@ -93,10 +94,11 @@ const FieldCellContainer: FC<FieldCellProp> = ({
       // if we go to an cell with zombie
       if (stage === "action" && cell.zombieID) {
         const newCell = newGame.board.find((item) => item.id === cell.id);
+
         newCell!.flipCell = false;
         newGame!.currentCharacter!.countOfTurns = 0;
         newGame!.currentCharacter!.stage = "fight";
-        // newGame.nextCharacter = false;
+        newGame.nextCharacter = false;
         newGame!.rollDisabled = false;
         setCellsToMoveArray([]);
       }
