@@ -1,7 +1,9 @@
 enum URL {
   USERS = "/users",
+  LOGIN = "/login",
+  SIGNUP = "/registration",
 
-  BASE_URL = "http://localhost:3000",
+  BASE_URL = "https://backend-zomber-geek-production.up.railway.app/api/auth",
 }
 
 export default URL;
