@@ -89,7 +89,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
       // if we go to an cell with zombie
       if (stage === "action" && cell.zombieID) {
         const newCell = newGame.board.find((item) => item.id === cell.id);
-        newCell!.flipCell = !newCell?.flipCell;
+        newCell!.flipCell = false;
         newGame!.currentCharacter!.countOfTurns = 0;
         newGame!.currentCharacter!.stage = "finish";
         setCellsToMoveArray([]);
