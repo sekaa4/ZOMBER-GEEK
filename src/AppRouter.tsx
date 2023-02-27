@@ -5,6 +5,7 @@ import CreateGame from "./pages/CreateGame";
 import LoginPage from "./pages/Login";
 import Main from "./pages/MainPage";
 import SignUpPage from "./pages/SignUp";
+import Developers from "./pages/Developers/Developers";
 import Welcome from "./pages/Welcome";
 
 const AppRouter = () => {
@@ -16,6 +17,7 @@ const AppRouter = () => {
       <Route path={Pages.game} element={<BoardPage />} />
       <Route path={Pages.login} element={<LoginPage />} />
       <Route path={Pages.signup} element={<SignUpPage />} />
+      <Route path={Pages.developers} element={<Developers />} />
     </Routes>
   );
 };

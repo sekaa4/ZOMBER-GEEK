@@ -5,6 +5,7 @@ enum Pages {
   create = "/create-game",
   login = "/login",
   signup = "/signup",
+  developers = "/developers",
   notfound = "*",
 }
 
