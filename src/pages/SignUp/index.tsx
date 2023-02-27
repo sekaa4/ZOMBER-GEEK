@@ -24,8 +24,6 @@ const SignUpPage: FC = () => {
     const newError = JSON.stringify(error);
     const anotherError = JSON.parse(newError);
     err = anotherError.data.message;
-    console.log(error);
-    console.log(err);
   }
 
   setTimeout(() => {
