@@ -23,14 +23,13 @@ const LoginPage: FC = () => {
     const newError = JSON.stringify(error);
     const anotherError = JSON.parse(newError);
     err = anotherError.data.message;
-    console.log(error);
   }
 
   document.cookie = `isToken=${data?.token}; Max-Age=86400; Path=/; Expires=Tue`;
 
   setTimeout(() => {
     if (data?.token) {
-      navigate(Pages.create);
+      navigate(Pages.main);
     }
   }, 3000);
 
