@@ -29,15 +29,12 @@ export default class CharacterWithHandGun extends Character {
       return CharacterWithHandGun.instance;
     }
 
-    const baseHandguns = {
-      handguns: 1,
-    };
-
     super(
       CharacterProps.CharacterNameWithHandGun,
       health ?? CharacterProps.CharacterDefaultHP,
     );
-    this.weapons = new Weapons(weapons ?? baseHandguns);
+    this.weapons = new Weapons(weapons);
+    this.weapons.handguns! += 1;
     this.items = new Items(items);
     this.countOfTurns = 0;
     this.currentPositionId = null;

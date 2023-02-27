@@ -7,6 +7,8 @@ import StandardGame from "../../entities/Game/StandardGame";
 import FieldCellComp from "../../components/FieldCellComp/FieldCellComp";
 import { gameSlice } from "../../store/reducers/GameSlice";
 import { CharacterName } from "../../models/Character.type";
+import Items from "../../entities/Items/Items";
+import Weapons from "../../entities/Weapon/Weapons";
 
 type FieldCellProp = {
   cell: FieldCell<number>;
@@ -33,6 +35,10 @@ const FieldCellContainer: FC<FieldCellProp> = ({
 
   const directions = directionsValues.map((str) => {
     const cellId = cell[str] ? getAdjacentCells(str, cell.id) : "";
+    if (cellId) {
+      const isChar = newGame.board[cellId - 1].characterName;
+      return isChar && cell.active ? "" : cellId;
+    }
     return cell.active ? cellId : "";
   });
 
@@ -47,11 +53,11 @@ const FieldCellContainer: FC<FieldCellProp> = ({
     const stage = game?.currentCharacter?.stage;
     if (stage === "action" && isActive) {
       setCellsToMoveArray(directions);
-      console.log(directions);
     }
   }, [
-    game?.currentCharacter?.stage,
-    game?.currentCharacter?.countOfTurns,
+    currentCharacter?.stage,
+    currentCharacter?.countOfTurns,
+    currentCharacter?.currentPositionId,
     cell.flipCell,
   ]);
 
@@ -85,13 +91,47 @@ const FieldCellContainer: FC<FieldCellProp> = ({
         const newCell = newGame.board.find((item) => item.id === cell.id);
         newCell!.flipCell = !newCell?.flipCell;
         newGame!.currentCharacter!.countOfTurns = 0;
+        newGame!.currentCharacter!.stage = "finish";
         setCellsToMoveArray([]);
       }
       // if we go to an cell with item
-      if (stage === "action" && cell.holdItemID) {
+      if (stage === "action" && cell.holdItemID && cell.flipCell) {
         const newCell = newGame.board.find((item) => item.id === cell.id);
         newCell!.flipCell = !newCell?.flipCell;
         newGame!.currentCharacter!.countOfTurns = 0;
+        newGame!.currentCharacter!.stage = "finish";
+        setTimeout(() => {
+          const timeoutBoard = structuredClone(newGame);
+          const timeoutCell = timeoutBoard.board.find(
+            (item) => item.id === cell.id,
+          );
+          const timeoutChar = timeoutBoard.currentCharacter;
+          timeoutCell!.holdItemID = null;
+          timeoutCell!.flipCell = true;
+          timeoutBoard.nextCharacter = true;
+          if (
+            Object.prototype.hasOwnProperty.call(
+              timeoutChar?.items,
+              cell.holdItemID as string,
+            )
+          ) {
+            timeoutBoard!.currentCharacter!.items[
+              cell!.holdItemID as keyof Items
+            ] += 1;
+          }
+          if (
+            Object.prototype.hasOwnProperty.call(
+              timeoutChar?.weapons,
+              cell.holdItemID as string,
+            )
+          ) {
+            timeoutBoard!.currentCharacter!.weapons[
+              cell!.holdItemID as keyof Weapons
+            ] += 1;
+          }
+          setCellsToMoveArray([]);
+          dispatch(gameSlice.actions.writeGameState(timeoutBoard));
+        }, 1500);
         setCellsToMoveArray([]);
       }
       dispatch(gameSlice.actions.writeGameState(newGame));

@@ -45,7 +45,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
     );
   }
   if (!flipCell && zombieId && !charName) {
-    const currentZombie = zombies.filter((item) => item.id === zombieId);
+    const currentZombie = zombies.find((item) => item.id === zombieId);
     return (
       <button
         type="button"
@@ -53,7 +53,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
         onClick={clickHandlerCallback}
       >
         <img
-          src={ZombiePhotos[currentZombie[0].name]}
+          src={ZombiePhotos[currentZombie!.name]}
           alt=""
           className={classes.zombieItemImage}
         />
@@ -75,8 +75,8 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
       </button>
     );
   }
-  if (!flipCell && charName && (zombieId || holdItemId)) {
-    const currentZombie = zombies.filter((item) => item.id === zombieId);
+  if (!flipCell && charName && (holdItemId || zombieId)) {
+    const currentZombie = zombies.find((item) => item.id === zombieId);
     return (
       <button
         type="button"
@@ -92,7 +92,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
           src={
             holdItemId
               ? ItemsAndWeaponsPhotos[holdItemId]
-              : ZombiePhotos[currentZombie[0].name]
+              : ZombiePhotos[currentZombie!.name]
           }
           alt={`${holdItemId} card`}
           className={classes.zombieItemImage}

@@ -30,7 +30,7 @@ export default class CharacterWithBigHP extends Character {
     }
 
     super(
-      CharacterProps.CharacterNameWithKnife,
+      CharacterProps.CharacterNameWithBigHP,
       health ?? CharacterProps.CharacterBigHP,
     );
     this.weapons = new Weapons(weapons);
