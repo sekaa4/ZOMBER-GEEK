@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RollSpin from "../../components/rollSpin/RollSpin";
-import CharacterFastest from "../../entities/Character/CharacterFastest";
 import StandardGame from "../../entities/Game/StandardGame";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Character } from "../../models/Character.type";
+import CharacterProps from "../../models/CharacterProps";
+import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
+import Pages from "../../models/Pages";
 import { gameSlice } from "../../store/reducers/GameSlice";
 import randomNumber from "../../utils/randomNumber";
 import ActionContext from "../ActionContainer/ActionContext";
@@ -12,7 +15,7 @@ import delayTime from "./constants";
 const actionsArr = [
   [1, "teeth"],
   [2, "runner"],
-  [3, "mellee weapon"],
+  [3, "melee weapon"],
   [4, "firearm"],
   [1, "teeth"],
   [2, "runner"],
@@ -21,6 +24,7 @@ const actionsArr = [
 const SpinContainer = () => {
   const { setActionHandler, setCountOfTurnHandler } = useContext(ActionContext);
   const [rotate, setRotate] = useState(0);
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const { game } = useAppSelector((state) => state.gameReducer);
@@ -71,20 +75,112 @@ const SpinContainer = () => {
     setRotate(deg);
     setActionHandler("Wait result...");
     setCountOfTurnHandler("Wait result...");
+
     setTimeout(() => {
       if (game) {
-        const updateGame = structuredClone(game) as StandardGame;
+        const updateGame = structuredClone(newGame) as StandardGame;
         const curCharacter = updateGame.currentCharacter as Character;
+        const numb = updateGame?.currentCharacter?.currentPositionId;
+        const curCell = updateGame?.board.find((cell) => cell.id === numb);
+        const lifeListNames = updateGame.usersNamesLifeList;
+        const { health, stage, weapons } = curCharacter;
+        updateGame.rollDisabled = true;
+
         setActionHandler(res[1] as string);
         setCountOfTurnHandler(res[0]);
-        curCharacter.stage = "action";
         curCharacter.countOfTurns = res[0] as number;
-        if (curCharacter instanceof CharacterFastest) {
-          console.log("fastest");
+
+        if (curCharacter.name === `${CharacterProps.CharacterNameFastest}`) {
           curCharacter.countOfTurns += 1;
         }
 
-        updateGame.rollDisabled = true;
+        if (
+          curCell &&
+          curCell.zombieID &&
+          curCell.characterName &&
+          stage === "fight"
+        ) {
+          curCharacter.countOfTurns = 0;
+          switch (res[1]) {
+            case "teeth": {
+              curCharacter.health = health > 0 ? health - 1 : 0;
+              alert(`You lost <1> health press spin again`);
+              updateGame.kindOfItems = null;
+
+              if (!curCharacter.health) {
+                curCharacter.stage = "death";
+                curCell.characterName = null;
+                updateGame.countLifeCharacters -= 1;
+
+                if (!updateGame.countLifeCharacters) {
+                  updateGame.finishGame = true;
+                  alert("Game finished, you lost");
+                  navigate(Pages.main);
+                } else {
+                  updateGame.nextCharacter = true;
+                  updateGame.usersNamesLifeList = lifeListNames.filter(
+                    (name) => name !== curCharacter.name,
+                  );
+                  alert("You died, press 'End of Turn' button");
+                }
+              } else {
+                updateGame.nextCharacter = false;
+                updateGame.rollDisabled = false;
+              }
+              break;
+            }
+            case "runner": {
+              curCharacter.stage = "action";
+              updateGame.rollDisabled = false;
+              updateGame.kindOfItems = null;
+              alert(
+                `Roll spin and choose fieldCell for step Character - ${curCharacter.name}`,
+              );
+              break;
+            }
+            case "melee weapon": {
+              const knife = weapons[ItemsAndWeaponsNames.KNIFES];
+              const axes = weapons[ItemsAndWeaponsNames.AXES];
+              updateGame.kindOfItems = "melee";
+
+              if (knife || axes) {
+                curCharacter.stage = "finish";
+                updateGame.nextCharacter = true;
+                curCell.zombieID = null;
+                curCell.flipCell = true;
+                alert(
+                  `You use ${
+                    knife
+                      ? ItemsAndWeaponsNames.KNIFES
+                      : ItemsAndWeaponsNames.AXES
+                  } and killing zombie press 'End of Turn'`,
+                );
+              } else updateGame.rollDisabled = false;
+
+              break;
+            }
+            case "firearm": {
+              const crossbows = weapons[ItemsAndWeaponsNames.CROSSBOWS];
+              const handguns = weapons[ItemsAndWeaponsNames.HANDGUNS];
+              const assaultRifles = weapons[ItemsAndWeaponsNames.ASSAULTRIFLES];
+              const shotguns = weapons[ItemsAndWeaponsNames.SHOTGUNS];
+              const BFG = weapons[ItemsAndWeaponsNames.BFG];
+              if (crossbows || handguns || assaultRifles || shotguns || BFG) {
+                alert(
+                  `You can use "firearm" and killing zombie or press 'SPIN'`,
+                );
+                updateGame.kindOfItems = "firearm";
+                updateGame.rollDisabled = false;
+              }
+              break;
+            }
+            default:
+              break;
+          }
+        } else {
+          curCharacter.stage = "action";
+        }
+
         dispatch(gameSlice.actions.writeGameState(updateGame));
       }
     }, delayTime);

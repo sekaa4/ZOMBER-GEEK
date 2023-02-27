@@ -13,21 +13,21 @@ const mochaWeapons: IWeapons = {
 };
 
 export default class Weapons {
-  [ItemsAndWeaponsNames.GRENADES]: number;
+  [ItemsAndWeaponsNames.GRENADES]!: number;
 
-  [ItemsAndWeaponsNames.KNIFES]: number;
+  [ItemsAndWeaponsNames.KNIFES]!: number;
 
-  [ItemsAndWeaponsNames.CROSSBOWS]: number;
+  [ItemsAndWeaponsNames.CROSSBOWS]!: number;
 
-  [ItemsAndWeaponsNames.AXES]: number;
+  [ItemsAndWeaponsNames.AXES]!: number;
 
-  [ItemsAndWeaponsNames.HANDGUNS]: number;
+  [ItemsAndWeaponsNames.HANDGUNS]!: number;
 
-  [ItemsAndWeaponsNames.ASSAULTRIFLES]: number;
+  [ItemsAndWeaponsNames.ASSAULTRIFLES]!: number;
 
-  [ItemsAndWeaponsNames.SHOTGUNS]: number;
+  [ItemsAndWeaponsNames.SHOTGUNS]!: number;
 
-  [ItemsAndWeaponsNames.BFG]: number;
+  [ItemsAndWeaponsNames.BFG]!: number;
 
   constructor({
     grenades,

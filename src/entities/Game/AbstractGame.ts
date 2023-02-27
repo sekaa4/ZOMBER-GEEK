@@ -2,6 +2,11 @@ import { Character, CharacterName, Chars } from "../../models/Character.type";
 import FieldCell from "../../models/FieldCell.type";
 import ZombieObj from "../../models/Zombie.type";
 
+export type KindOfItems = "melee" | "firearm";
+
+export type WinItemsObj = {
+  [index in CharacterName]?: KindOfItems[];
+};
 export interface StandardGameParams {
   board: FieldCell<number>[];
   usersNamesList: CharacterName[];
@@ -17,6 +22,8 @@ export interface StandardGameParams {
   finishGame?: boolean;
   zombies?: ZombieObj[];
   rollDisabled?: boolean;
+  kindOfItems?: KindOfItems;
+  winItems?: WinItemsObj;
 }
 
 export default abstract class Game {
@@ -52,6 +59,10 @@ export default abstract class Game {
 
   rollDisabled: boolean;
 
+  kindOfItems: KindOfItems | null;
+
+  winItems: WinItemsObj;
+
   constructor(params: StandardGameParams = {} as StandardGameParams) {
     const {
       board,
@@ -68,6 +79,8 @@ export default abstract class Game {
       zombies,
       nextCharacter,
       rollDisabled,
+      kindOfItems,
+      winItems,
     } = params;
 
     this.id = Game.getIdNumber();
@@ -85,6 +98,8 @@ export default abstract class Game {
     this.zombies = zombies ?? [];
     this.nextCharacter = nextCharacter ?? false;
     this.rollDisabled = rollDisabled ?? true;
+    this.kindOfItems = kindOfItems ?? null;
+    this.winItems = winItems ?? {};
   }
 
   abstract start(): void;

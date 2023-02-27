@@ -9,13 +9,13 @@ const mochaItems: IItems = {
 };
 
 export default class Items {
-  firstAidKits: number;
+  firstAidKits!: number;
 
-  boards: number;
+  boards!: number;
 
-  gasoline: number;
+  gasoline!: number;
 
-  keys: number;
+  keys!: number;
 
   constructor({ firstAidKits, boards, gasoline, keys }: IItems = mochaItems) {
     this[ItemsAndWeaponsNames.FIRST_AID_KITS] = firstAidKits;
