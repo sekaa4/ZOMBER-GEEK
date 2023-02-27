@@ -54,6 +54,10 @@ const FieldCellContainer: FC<FieldCellProp> = ({
     if (stage === "action" && isActive) {
       setCellsToMoveArray(directions);
     }
+    if (stage === "fight" && isActive && currentCharacter?.countOfTurns !== 0) {
+      setCellsToMoveArray(directions);
+    }
+    return () => setCellsToMoveArray([]);
   }, [
     currentCharacter?.stage,
     currentCharacter?.countOfTurns,
@@ -91,7 +95,9 @@ const FieldCellContainer: FC<FieldCellProp> = ({
         const newCell = newGame.board.find((item) => item.id === cell.id);
         newCell!.flipCell = false;
         newGame!.currentCharacter!.countOfTurns = 0;
-        newGame!.currentCharacter!.stage = "finish";
+        newGame!.currentCharacter!.stage = "fight";
+        // newGame.nextCharacter = false;
+        newGame!.rollDisabled = false;
         setCellsToMoveArray([]);
       }
       // if we go to an cell with item

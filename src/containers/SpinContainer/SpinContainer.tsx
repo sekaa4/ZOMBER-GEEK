@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RollSpin from "../../components/rollSpin/RollSpin";
-import CharacterFastest from "../../entities/Character/CharacterFastest";
 import StandardGame from "../../entities/Game/StandardGame";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Character } from "../../models/Character.type";
+import CharacterProps from "../../models/CharacterProps";
+import Pages from "../../models/Pages";
 import { gameSlice } from "../../store/reducers/GameSlice";
 import randomNumber from "../../utils/randomNumber";
 import ActionContext from "../ActionContainer/ActionContext";
@@ -21,10 +23,13 @@ const actionsArr = [
 const SpinContainer = () => {
   const { setActionHandler, setCountOfTurnHandler } = useContext(ActionContext);
   const [rotate, setRotate] = useState(0);
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const { game } = useAppSelector((state) => state.gameReducer);
   const newGame = structuredClone(game) as StandardGame;
+  const { action, countOfTurn, changeStatus, turn, isDisabled } =
+    useContext(ActionContext);
 
   let deg = 0;
   let res: (string | number)[];
@@ -71,20 +76,80 @@ const SpinContainer = () => {
     setRotate(deg);
     setActionHandler("Wait result...");
     setCountOfTurnHandler("Wait result...");
+
     setTimeout(() => {
       if (game) {
         const updateGame = structuredClone(game) as StandardGame;
         const curCharacter = updateGame.currentCharacter as Character;
+        const numb = updateGame?.currentCharacter?.currentPositionId;
+        const curCell = updateGame?.board.find((cell) => cell.id === numb);
+        const lifeListNames = updateGame.usersNamesLifeList;
+        const { health, stage } = curCharacter;
+        updateGame.rollDisabled = false;
+
         setActionHandler(res[1] as string);
         setCountOfTurnHandler(res[0]);
-        curCharacter.stage = "action";
         curCharacter.countOfTurns = res[0] as number;
-        if (curCharacter instanceof CharacterFastest) {
-          console.log("fastest");
+
+        if (curCharacter.name === `${CharacterProps.CharacterNameFastest}`) {
           curCharacter.countOfTurns += 1;
         }
 
-        updateGame.rollDisabled = true;
+        if (
+          curCell &&
+          curCell.zombieID &&
+          curCell.characterName &&
+          stage === "fight"
+        ) {
+          curCharacter.countOfTurns = 0;
+          switch (res[1]) {
+            case "teeth": {
+              curCharacter.health = health > 0 ? health - 1 : 0;
+
+              if (!curCharacter.health) {
+                curCharacter.stage = "death";
+                curCell.characterName = null;
+                updateGame.countLifeCharacters -= 1;
+
+                if (!updateGame.countLifeCharacters) {
+                  updateGame.finishGame = true;
+                  alert("Game finished, you lost");
+                  navigate(Pages.main);
+                } else {
+                  updateGame.nextCharacter = true;
+                  updateGame.usersNamesLifeList = lifeListNames.filter(
+                    (name) => name !== curCharacter.name,
+                  );
+                  alert("You died, press 'End of Turn' button");
+                  // dispatch(gameSlice.actions.writeGameState(updateGame));
+                  // return;
+                }
+              } else {
+                updateGame.nextCharacter = false;
+                updateGame.rollDisabled = false;
+              }
+              break;
+            }
+            case "runner": {
+              // curCharacter.stage = "action";
+              alert(
+                `Roll spin and choose fieldCell for step Character - ${curCharacter.name}`,
+              );
+              break;
+            }
+            case "mellee weapon": {
+              break;
+            }
+            case "firearm": {
+              break;
+            }
+            default:
+              break;
+          }
+        } else {
+          curCharacter.stage = "action";
+        }
+
         dispatch(gameSlice.actions.writeGameState(updateGame));
       }
     }, delayTime);

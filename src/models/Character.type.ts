@@ -9,7 +9,13 @@ export type CharacterName =
   | `${CharacterProps.CharacterNameWithHandGun}`
   | `${CharacterProps.CharacterNameWithBigHP}`;
 
-export type Stage = "prepare" | "roll" | "action" | "finish";
+export type Stage =
+  | "prepare"
+  | "roll"
+  | "action"
+  | "finish"
+  | "fight"
+  | "death";
 
 export type Chars = {
   [key in CharacterName]?: Character;

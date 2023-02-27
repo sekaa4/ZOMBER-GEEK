@@ -31,7 +31,7 @@ const CharacterDetails: FC = () => {
           <ul>
             Character items:
             {Object.entries(character.items).map(([key, value]) => (
-              <li>
+              <li key={key}>
                 {key}: {value}
               </li>
             ))}
@@ -39,7 +39,7 @@ const CharacterDetails: FC = () => {
           <ul>
             Character weapons:
             {Object.entries(character.weapons).map(([key, value]) => (
-              <li>
+              <li key={key}>
                 {key}: {value}
               </li>
             ))}

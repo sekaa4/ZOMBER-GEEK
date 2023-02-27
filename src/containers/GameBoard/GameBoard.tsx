@@ -33,8 +33,16 @@ const GameBoard: FC = () => {
     if (!numb) {
       alert(`Place ${name} on the board `);
     }
-    if (numb && stage === "roll") {
+    if (
+      numb &&
+      stage === "roll" &&
+      !curCell?.holdItemID &&
+      !curCell?.zombieID
+    ) {
       alert(`Roll spin and choose fieldCell for step Character - ${name}`);
+    }
+    if (numb && stage === "fight" && curCell?.zombieID) {
+      alert(`Roll spin and fight with zombie- ${name}`);
     }
     if (turns === 0 && stage === "action") {
       setCellsToMove([]);
