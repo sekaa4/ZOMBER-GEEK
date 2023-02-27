@@ -2,7 +2,7 @@ import IItems from "../../models/Items.type";
 import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
 
 const mochaItems: IItems = {
-  [ItemsAndWeaponsNames.FIRST_AID_KITS]: 1,
+  [ItemsAndWeaponsNames.FIRST_AID_KITS]: 0,
   [ItemsAndWeaponsNames.BOARDS]: 0,
   [ItemsAndWeaponsNames.GASOLINE]: 0,
   [ItemsAndWeaponsNames.KEYS]: 0,

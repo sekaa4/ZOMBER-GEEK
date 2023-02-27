@@ -6,9 +6,9 @@ const mochaWeapons: IWeapons = {
   [ItemsAndWeaponsNames.KNIFES]: 0,
   [ItemsAndWeaponsNames.CROSSBOWS]: 0,
   [ItemsAndWeaponsNames.AXES]: 0,
-  [ItemsAndWeaponsNames.HANDGUNS]: 1,
+  [ItemsAndWeaponsNames.HANDGUNS]: 0,
   [ItemsAndWeaponsNames.ASSAULTRIFLES]: 0,
-  [ItemsAndWeaponsNames.SHOTGUNS]: 1,
+  [ItemsAndWeaponsNames.SHOTGUNS]: 0,
   [ItemsAndWeaponsNames.BFG]: 0,
 };
 
