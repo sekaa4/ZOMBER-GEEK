@@ -25,17 +25,16 @@ const LoginPage: FC = () => {
     err = anotherError.data.message;
   }
 
-  document.cookie = `isToken=${data?.token}; Max-Age=86400; Path=/; Expires=Tue`;
-
-  setTimeout(() => {
-    if (data?.token) {
-      navigate(Pages.main);
-    }
-  }, 3000);
+  if (data?.token && !isLoading) {
+    document.cookie = `isToken=${data?.token}; Max-Age=86400; Path=/; Expires=Tue`;
+    navigate(Pages.main);
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
+  }
 
   return (
     <section className={classes.login}>
-      <div>{isLoading}</div>
+      <div>{isLoading} </div>
       <div>{isError}</div>
       {error && <div className={classes.errMessage}>{err}</div>}
       <h1>Login</h1>
