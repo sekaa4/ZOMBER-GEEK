@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
+import ConstantsString from "../../models/ConstantsString";
 import MainPage from "../../models/MainPage";
 import Pages from "../../models/Pages";
 import classes from "./ButtonsContainerMain.module.scss";
@@ -45,7 +46,7 @@ const ButtonsContainerMain: FC = () => {
         />
         <NavLink
           className={classes.nav}
-          to="https://drive.google.com/file/d/1NjzC8_O9flX6-dDlmmr8Vi1oWXktBBR2/view?usp=sharing"
+          to={ConstantsString.RULES_URL}
           target="_blank"
         >
           <Button title={MainPage.RULES} classNames={[classes.nav]} />
