@@ -10,7 +10,7 @@
 .character-img {
   display: block;
   object-fit: contain;
-  height: 18vw;
+  height: 17vw;
 }
 
 .items {
@@ -20,6 +20,9 @@
 
 .main-information {
   text-align: center;
+  & > * {
+    line-height: 2rem;
+  }
 }
 
 .description {
@@ -27,16 +30,16 @@
 }
 
 .items-button {
-  padding: 1rem;
+  padding: 0.4rem;
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 1rem;
-  height: 3rem;
+  height: 2.5rem;
   border-radius: 8px;
   transition: all 0.3s;
   border: 1px solid var(--color-border);
   color: var(--color-text);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .win-items {

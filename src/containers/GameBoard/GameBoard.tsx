@@ -30,7 +30,10 @@ const GameBoard: FC = () => {
     const curCell = game?.board.find((cell) => cell.id === numb);
 
     if (!numb) {
-      setTimeout(() => alert(`Place ${name} on the board `), 1000);
+      setTimeout(() => {
+        newGame.rollDisabled = true;
+        alert(`Place ${name} on the board `);
+      }, 1000);
     }
     if (
       numb &&

@@ -1,6 +1,8 @@
 import { useRef, useState, useMemo, useEffect } from "react";
 import Header from "../../components/boardPageHeader/Header";
 import CharacterCard from "../../components/characterCard/CharacterCard";
+import { useAppSelector } from "../../hooks/redux";
+import { Character, CharacterName } from "../../models/Character.type";
 import BoardContext from "../../pages/Board/BoardContext";
 import ActionContainer from "../ActionContainer/ActionContainer";
 import classes from "./InfoContainer.module.scss";
@@ -8,6 +10,8 @@ import classes from "./InfoContainer.module.scss";
 const InfoContainer = () => {
   const pause = useRef<HTMLButtonElement>(null);
   const resume = useRef<HTMLButtonElement>(null);
+  const { game } = useAppSelector((state) => state.gameReducer);
+  const characterList = game?.usersNamesList as CharacterName[];
 
   const [time, setTime] = useState({
     time: 0,
@@ -69,11 +73,25 @@ const InfoContainer = () => {
           <ActionContainer />
         </div>
         <div className={classes.boardPageCharactersContainer}>
-          <CharacterCard />
-          <CharacterCard />
-          <CharacterCard />
-          <CharacterCard />
-          <CharacterCard />
+          {characterList.map((characterName) => {
+            const currentCharacter = game?.usersCharacters[
+              characterName
+            ] as Character;
+            const classesNames: string[] = [classes.default];
+            if (currentCharacter?.active) {
+              classesNames.push(classes.active);
+            }
+            if (currentCharacter?.health === 0) {
+              classesNames.push(classes.dead);
+            }
+
+            return (
+              <CharacterCard
+                character={currentCharacter}
+                classNames={classesNames}
+              />
+            );
+          })}
         </div>
         <div className={classes.buttons}>
           <button

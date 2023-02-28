@@ -104,7 +104,7 @@ const SpinContainer = () => {
           switch (res[1]) {
             case "teeth": {
               curCharacter.health = health > 0 ? health - 1 : 0;
-              alert(`You lost <1> health press spin again`);
+              alert(`You lost «1 Hp» press spin again`);
               updateGame.kindOfItems = null;
 
               if (!curCharacter.health) {
@@ -121,7 +121,7 @@ const SpinContainer = () => {
                   updateGame.usersNamesLifeList = lifeListNames.filter(
                     (name) => name !== curCharacter.name,
                   );
-                  alert("You died, press 'End of Turn' button");
+                  alert("You died, press 'End of Turn'");
                 }
               } else {
                 updateGame.nextCharacter = false;
@@ -155,7 +155,10 @@ const SpinContainer = () => {
                       : ItemsAndWeaponsNames.AXES
                   } and killing zombie press 'End of Turn'`,
                 );
-              } else updateGame.rollDisabled = false;
+              } else {
+                updateGame.rollDisabled = false;
+                alert(`You need roll again, press 'SPIN'`);
+              }
 
               break;
             }
@@ -171,6 +174,9 @@ const SpinContainer = () => {
                 );
                 updateGame.kindOfItems = "firearm";
                 updateGame.rollDisabled = false;
+              } else {
+                updateGame.rollDisabled = false;
+                alert(`You need roll again, press 'SPIN'`);
               }
               break;
             }
