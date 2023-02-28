@@ -11,6 +11,11 @@ import classes from "./StateDescription.module.scss";
 const StateDescription = () => {
   const { action, countOfTurn, changeStatus, turn, isDisabled, winItems } =
     useContext(ActionContext);
+  const winItemsArr = (
+    Object.keys(winItems) as Array<keyof typeof winItems>
+  ).reduce((acc: (KindOfWinObj[] | undefined)[], cur: CharacterName) => {
+    return [...acc, winItems[cur]];
+  }, [] as (typeof winItems)[keyof typeof winItems][]);
 
   return (
     <div className={classes["state-description"]}>
@@ -18,19 +23,19 @@ const StateDescription = () => {
       <GameTurns turn={turn} />
       <GameDescription description="GameAction" value={action} />
       <GameDescription description="GamePointsOfAction" value={countOfTurn} />
-      <div>
+      <div className={classes["need-items"]}>
         <span>
-          You need find "GASOLINE" and "KEYS" in order to finish the game
+          You need find <br />
+          <strong>"GASOLINE"</strong> and <strong>"KEYS"</strong>
+          <br /> in order to finish the game.
+          <br />
         </span>
         <span>
-          Current find items:{" "}
-          <strong>
-            {(Object.keys(winItems) as Array<keyof typeof winItems>).reduce(
-              (acc: (KindOfWinObj[] | undefined)[], cur: CharacterName) => {
-                return [...acc, winItems[cur]];
-              },
-              [] as (typeof winItems)[keyof typeof winItems][],
-            )}
+          Current find items: <br />
+          <strong className={classes["win-items"]}>
+            {winItemsArr.map((item) => (
+              <div>*{item}*</div>
+            ))}
           </strong>
         </span>
       </div>
@@ -38,6 +43,7 @@ const StateDescription = () => {
         title="End of Turn"
         onClickHandler={changeStatus}
         disabled={isDisabled}
+        classNames={[classes["end-turn"]]}
       />
     </div>
   );

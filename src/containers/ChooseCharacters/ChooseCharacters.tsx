@@ -1,18 +1,41 @@
 import { ChangeEvent } from "react";
+import Button from "../../components/button/Button";
 import LabelInput from "../../components/labelInput/LabelInput";
 import SimpleText from "../../components/simpleText/SimpleText";
+import { CharacterName } from "../../models/Character.type";
 import CharacterProps from "../../models/CharacterProps";
+import CreateGameConstants from "../../models/CreateGameConstants";
 import classes from "./ChooseCharacters.module.scss";
 
 interface ChooseCharactersProps {
   onChangeHandler(e: ChangeEvent<HTMLInputElement>): void;
+  onChangeButtonHandler(): void;
+  players?: number;
+  characters: CharacterName[];
+  character?: CharacterName;
 }
 
 const ChooseCharacters = (props: ChooseCharactersProps) => {
-  const { onChangeHandler } = props;
+  const {
+    character = "default",
+    characters,
+    players,
+    onChangeHandler,
+    onChangeButtonHandler,
+  } = props;
+
+  let disabled = true;
+
+  if (players && players > characters.length && character !== "default") {
+    disabled = false;
+  }
+
+  if (characters.find((value) => value === character)) {
+    disabled = true;
+  }
 
   return (
-    <div className={classes["label-container"]}>
+    <div className={classes.list}>
       <SimpleText text="List of Characters: " />
       <LabelInput
         id={`${CharacterProps.CharacterNameWithKnife}`}
@@ -53,6 +76,16 @@ const ChooseCharacters = (props: ChooseCharactersProps) => {
         type="radio"
         onChangeHandler={onChangeHandler}
         classNames="label-line"
+      />
+      <Button
+        title={CreateGameConstants.SELECT}
+        disabled={disabled}
+        classNames={
+          disabled
+            ? [classes["select-button"]]
+            : [classes["select-button"], classes.visible]
+        }
+        onClickHandler={onChangeButtonHandler}
       />
     </div>
   );
