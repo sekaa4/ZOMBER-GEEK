@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { WinItemsObj } from "../../entities/Game/AbstractGame";
 
 interface ActionContextProps {
   setActionHandler(prop: string): void;
@@ -9,6 +10,7 @@ interface ActionContextProps {
   countOfTurn: string | number;
   turn: number;
   isDisabled: boolean;
+  winItems: WinItemsObj;
 }
 
 const ActionContext = createContext({} as ActionContextProps);

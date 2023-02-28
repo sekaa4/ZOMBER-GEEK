@@ -14,7 +14,7 @@ const ActionContainer = () => {
   const { game } = useAppSelector((state) => state.gameReducer);
   const dispatch = useAppDispatch();
   const newGame = structuredClone(game) as StandardGame;
-  const { turn, board, currentCharacter } = newGame;
+  const { turn, board, currentCharacter, winItems } = newGame;
   const isDisabled = !newGame?.nextCharacter;
   const curCell = board.find(
     (cell) => cell.id === currentCharacter?.currentPositionId,
@@ -111,12 +111,14 @@ const ActionContainer = () => {
       countOfTurn,
       turn,
       isDisabled,
+      winItems,
     }),
     [
       action,
       countOfTurn,
       turn,
       isDisabled,
+      winItems,
       setActionHandler,
       setCountOfTurnHandler,
       changeStatus,
