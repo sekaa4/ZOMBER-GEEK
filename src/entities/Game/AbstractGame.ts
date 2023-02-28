@@ -3,10 +3,9 @@ import FieldCell from "../../models/FieldCell.type";
 import ZombieObj from "../../models/Zombie.type";
 
 export type KindOfItems = "melee" | "firearm";
+export type KindOfWinObj = "gasoline" | "keys";
 
-export type WinItemsObj = {
-  [index in CharacterName]?: KindOfItems[];
-};
+export type WinItemsObj = Partial<Record<CharacterName, KindOfWinObj[]>>;
 export interface StandardGameParams {
   board: FieldCell<number>[];
   usersNamesList: CharacterName[];

@@ -9,6 +9,8 @@ import { gameSlice } from "../../store/reducers/GameSlice";
 import { CharacterName } from "../../models/Character.type";
 import Items from "../../entities/Items/Items";
 import Weapons from "../../entities/Weapon/Weapons";
+import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
+import { KindOfWinObj, WinItemsObj } from "../../entities/Game/AbstractGame";
 
 type FieldCellProp = {
   cell: FieldCell<number>;
@@ -122,6 +124,26 @@ const FieldCellContainer: FC<FieldCellProp> = ({
               cell.holdItemID as string,
             )
           ) {
+            if (
+              cell.holdItemID === ItemsAndWeaponsNames.KEYS ||
+              cell.holdItemID === ItemsAndWeaponsNames.GASOLINE
+            ) {
+              const winItemsObj = timeoutBoard.winItems as WinItemsObj;
+              const nameChar = timeoutChar!.name as CharacterName;
+              const winItem = cell.holdItemID as KindOfWinObj;
+
+              if (winItemsObj[nameChar]) {
+                winItemsObj[nameChar]?.push(winItem);
+                if (
+                  winItemsObj[nameChar]?.length === 2 ||
+                  Object.keys(winItemsObj).length === 2
+                ) {
+                  timeoutBoard.finishGame = true;
+                }
+              } else {
+                winItemsObj[nameChar] = [winItem];
+              }
+            }
             timeoutBoard!.currentCharacter!.items[
               cell!.holdItemID as keyof Items
             ] += 1;
