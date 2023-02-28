@@ -73,7 +73,13 @@ const ChooseContainer: FC = () => {
       <LabelContainer onChangeHandler={setPlayersHandler} />
       <div className={classes["characters-container"]}>
         <ListOfCharacters playersNumber={players} characters={characters} />
-        <ChooseCharacters onChangeHandler={setCharacterHandler} />
+        <ChooseCharacters
+          onChangeHandler={setCharacterHandler}
+          onChangeButtonHandler={setCharactersHandler}
+          players={players}
+          characters={characters}
+          character={character}
+        />
         <ViewCharacter
           players={players}
           character={character}

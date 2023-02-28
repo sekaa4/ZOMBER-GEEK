@@ -16,7 +16,7 @@ const ImageCharacter = (props: ImageCharacterProps) => {
   let disabled = true;
 
   if (players && players > characters.length && character !== "default") {
-    disabled = false;
+    disabled = true;
   }
 
   if (characters.find((value) => value === character)) {
