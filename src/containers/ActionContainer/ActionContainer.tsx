@@ -41,12 +41,12 @@ const ActionContainer = () => {
         (indexName + 1) % charactersNamesLife.length;
       const nextName = charactersNamesLife[nextCharacterNameIndex];
       const nextCharacter = newGame.usersCharacters[nextName] as Character;
+      currentCharacter.active = false;
+      currentCharacter.stage =
+        currentCharacter.stage === "death" ? "death" : "roll";
       nextCharacter.active = true;
       nextCharacter.stage = "roll";
-      currentCharacter.stage =
-        currentCharacter.stage === "death" ? "death" : "prepare";
-      currentCharacter.active = false;
-      currentCharacter.stage = "roll";
+
       newGame.currentCharacter = nextCharacter;
       newGame.nextCharacter = false;
       newGame.rollDisabled = false;

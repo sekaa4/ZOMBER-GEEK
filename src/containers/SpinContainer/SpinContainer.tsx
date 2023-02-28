@@ -104,7 +104,7 @@ const SpinContainer = () => {
           switch (res[1]) {
             case "teeth": {
               curCharacter.health = health > 0 ? health - 1 : 0;
-              alert(`You lost «1 Hp» press spin again`);
+              alert(`You lost «1 Hp» press 'SPIN' again`);
               updateGame.kindOfItems = null;
 
               if (!curCharacter.health) {
