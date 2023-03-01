@@ -9,7 +9,6 @@ interface CharacterCardProps {
 
 const CharacterCard = (props: CharacterCardProps) => {
   const { character, classNames } = props;
-  // const { changeCountItemsHandler } = useContext(ActionContext);
   let status: string;
   if (character.health === 0) {
     status = "death";

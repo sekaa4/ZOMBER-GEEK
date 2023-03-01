@@ -21,7 +21,7 @@ import AssaultRifflePhoto from "../assets/images/items/assoult-riffle.webp";
 import ShotgunPhoto from "../assets/images/items/shotgun.webp";
 import BFGPhoto from "../assets/images/items/BFG.webp";
 
-export const CharacterPhotos: { [key: string]: any } = {
+export const CharacterPhotos: { [key: string]: string } = {
   Alex: AlexPhoto,
   Anita: AnitaPhoto,
   Max: MaxPhoto,
@@ -29,14 +29,14 @@ export const CharacterPhotos: { [key: string]: any } = {
   Johnny: JohnnyPhoto,
 };
 
-export const ZombiePhotos: { [key: string]: any } = {
+export const ZombiePhotos: { [key: string]: string } = {
   [ZombieProps.ZombieNameBoss]: NightmarePhoto,
   [ZombieProps.ZombieNameDefault]: DefaultZombiePhoto,
 };
 
 export const flipCard = FlipCardPhoto;
 
-export const ItemsAndWeaponsPhotos: { [key: string]: any } = {
+export const ItemsAndWeaponsPhotos: { [key: string]: string } = {
   [ItemsAndWeaponsNames.FIRST_AID_KITS]: FirstAidKitPhoto,
   [ItemsAndWeaponsNames.BOARDS]: BoardsPhoto,
   [ItemsAndWeaponsNames.GASOLINE]: GasolinePhoto,

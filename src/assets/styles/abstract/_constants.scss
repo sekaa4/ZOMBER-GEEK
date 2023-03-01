@@ -1,21 +1,21 @@
-$color-light: #ffffff;
-$color-counter: #06a56c;
-$color-footer: #060f42;
-$color-error: #333333;
-$color-description: #f4f8fb;
-$color-overlay: rgba(80, 80, 80, 0.4);
-$color-text-placeholder: rgba(15, 14, 14, 0.7);
-$color-border-header: #999999;
-$color-name: #06a56c;
-$board-page-bg-color: #df8944;
+// $color-light: #ffffff;
+// $color-counter: #06a56c;
+// $color-footer: #060f42;
+// $color-error: #333333;
+// $color-description: #f4f8fb;
+// $color-overlay: rgba(80, 80, 80, 0.4);
+// $color-text-placeholder: rgba(15, 14, 14, 0.7);
+// $color-border-header: #999999;
+// $color-name: #06a56c;
+// $board-page-bg-color: #df8944;
 
-$media-max-width: 1585px;
+// $media-max-width: 1585px;
 
 :root {
   --color-hovered: #01579b;
   --color-border: #06a56c;
   --color-text: #f5f5f5;
-  --color-disabled: #9b0101;
+  --color-disabled: rgba(80, 80, 80, 1);
 
   --content-width: 70rem;
   --content-width-create: 100rem;

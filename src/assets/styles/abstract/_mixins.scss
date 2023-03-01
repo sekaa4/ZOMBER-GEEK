@@ -6,7 +6,7 @@
 }
 
 @mixin media-tablet {
-  @media screen and (max-width: $media-max-width) {
+  @media screen and (max-width: 1585px) {
     @content;
   }
 }

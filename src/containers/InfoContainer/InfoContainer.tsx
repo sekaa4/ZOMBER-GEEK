@@ -87,6 +87,7 @@ const InfoContainer = () => {
 
             return (
               <CharacterCard
+                key={currentCharacter.name}
                 character={currentCharacter}
                 classNames={classesNames}
               />

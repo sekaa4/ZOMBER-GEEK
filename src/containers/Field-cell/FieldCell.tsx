@@ -4,13 +4,13 @@ import getAdjacentCells from "../../utils/getAdjacentCells";
 import Directions from "../../models/Directions.type";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import StandardGame from "../../entities/Game/StandardGame";
-import FieldCellComp from "../../components/FieldCellComp/FieldCellComp";
 import { gameSlice } from "../../store/reducers/GameSlice";
 import { CharacterName } from "../../models/Character.type";
 import Items from "../../entities/Items/Items";
 import Weapons from "../../entities/Weapon/Weapons";
 import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
 import { KindOfWinObj, WinItemsObj } from "../../entities/Game/AbstractGame";
+import FieldCellComp from "../../components/FieldCellComp/FieldCellComp";
 
 type FieldCellProp = {
   cell: FieldCell<number>;
@@ -33,7 +33,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
   const dispatch = useAppDispatch();
   const { game } = useAppSelector((state) => state.gameReducer);
   const newGame = structuredClone(game) as StandardGame;
-  const { currentCharacter } = newGame;
+  const { currentCharacter, dropItems } = newGame;
 
   const directions = directionsValues.map((str) => {
     const cellId = cell[str] ? getAdjacentCells(str, cell.id) : "";
@@ -83,7 +83,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
       curCell.active = true;
 
       // if we choose first position
-      if (stage === "prepare" && !positionId) {
+      if ((!positionId && stage === "prepare") || stage === "roll") {
         newGame!.currentCharacter!.stage = "roll";
         newGame!.rollDisabled = false;
         setCellsToMoveArray([]);
@@ -175,6 +175,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
       isActive={isActive}
       isCellToMove={isCellToMove}
       isFinish={isFinishCell}
+      dropItems={dropItems}
       clickHandlerCallback={clickHandler}
     />
   );

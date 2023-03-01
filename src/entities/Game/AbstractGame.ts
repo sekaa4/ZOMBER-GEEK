@@ -23,6 +23,7 @@ export interface StandardGameParams {
   rollDisabled?: boolean;
   kindOfItems?: KindOfItems;
   winItems?: WinItemsObj;
+  dropItems?: KindOfWinObj[];
 }
 
 export default abstract class Game {
@@ -62,6 +63,8 @@ export default abstract class Game {
 
   winItems: WinItemsObj;
 
+  dropItems: KindOfWinObj[] | null;
+
   constructor(params: StandardGameParams = {} as StandardGameParams) {
     const {
       board,
@@ -80,6 +83,7 @@ export default abstract class Game {
       rollDisabled,
       kindOfItems,
       winItems,
+      dropItems,
     } = params;
 
     this.id = Game.getIdNumber();
@@ -99,6 +103,7 @@ export default abstract class Game {
     this.rollDisabled = rollDisabled ?? true;
     this.kindOfItems = kindOfItems ?? null;
     this.winItems = winItems ?? {};
+    this.dropItems = dropItems ?? null;
   }
 
   abstract start(): void;
