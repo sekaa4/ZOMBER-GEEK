@@ -66,7 +66,7 @@ const SpinContainer = () => {
         break;
       }
       case 4: {
-        deg = 360 * randomNum - 5;
+        deg = 360 * randomNumber(min, max) - 5;
         break;
       }
       default:
