@@ -47,7 +47,7 @@ const SpinContainer = () => {
     dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
 
     const min = 4;
-    const max = 22;
+    const max = 18;
 
     const randomNum = randomNumber(min, max);
     res = randomAction(actionsArr);
