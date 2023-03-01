@@ -84,7 +84,7 @@ const ActionContainer = () => {
         nameItem === "BFG" ||
         nameItem === "grenades")
     ) {
-      if (curCell.zombieID) {
+      if (curCell.zombieID && (curCell.zombieID !== 1 || nameItem === "BFG")) {
         const holdItems = curCell.holdItemID;
 
         currentCharacter.weapons[nameItem] -= 1;
@@ -112,6 +112,14 @@ const ActionContainer = () => {
           newGame.dropItems = null;
           curCell.holdItemID = null;
         }
+      } else if (
+        curCell.zombieID &&
+        curCell.zombieID === 1 &&
+        nameItem !== "BFG"
+      ) {
+        newGame.rollDisabled = false;
+        currentCharacter.weapons[nameItem] -= 1;
+        alert(`You need use BFG to kill the BOSS , press 'SPIN'`);
       }
     } else {
       newGame.kindOfItems = null;

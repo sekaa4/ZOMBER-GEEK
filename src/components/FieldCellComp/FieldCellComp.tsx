@@ -1,7 +1,6 @@
 import { FC } from "react";
 import {
   CharacterPhotos,
-  flipCard,
   ItemsAndWeaponsPhotos,
   ZombiePhotos,
 } from "../../constants/Photos";
@@ -41,13 +40,31 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
     isFinish ? classes.fieldCellFinish : "",
   ].join(" ");
   if (flipCell && (zombieId || holdItemId)) {
+    // return (
+    //   <button
+    //     type="button"
+    //     className={classesNames}
+    //     onClick={clickHandlerCallback}
+    //   >
+    //     <img src={flipCard} alt="flip card" className={classes.flipCardImage} />
+    //   </button>
+    // );
+    const currentZombie = zombies.find((item) => item.id === zombieId);
     return (
       <button
         type="button"
         className={classesNames}
         onClick={clickHandlerCallback}
       >
-        <img src={flipCard} alt="flip card" className={classes.flipCardImage} />
+        <img
+          src={
+            holdItemId
+              ? ItemsAndWeaponsPhotos[holdItemId]
+              : ZombiePhotos[currentZombie!.name]
+          }
+          alt={`${holdItemId} card`}
+          className={classes.zombieItemImage}
+        />
       </button>
     );
   }
@@ -66,6 +83,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
         />
         {dropItems.map((dropItem) => (
           <img
+            key={dropItem}
             src={ItemsAndWeaponsPhotos[dropItem]}
             alt={`${holdItemId} card`}
             className={classes.miniImage}
@@ -94,6 +112,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
         />
         {dropItems.map((dropItem) => (
           <img
+            key={dropItem}
             src={ItemsAndWeaponsPhotos[dropItem]}
             alt={`${holdItemId} card`}
             className={classes.miniImage}
