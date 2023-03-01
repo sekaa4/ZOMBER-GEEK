@@ -47,7 +47,7 @@ const SpinContainer = () => {
     dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
 
     const min = 4;
-    const max = 15;
+    const max = 22;
 
     const randomNum = randomNumber(min, max);
     res = randomAction(actionsArr);
@@ -162,7 +162,7 @@ const SpinContainer = () => {
               const axes = weapons[ItemsAndWeaponsNames.AXES];
               updateGame.kindOfItems = "melee";
 
-              if (knife || axes) {
+              if (curCell.zombieID !== 1 && (knife || axes)) {
                 curCharacter.stage = "finish";
                 updateGame.nextCharacter = true;
                 curCell.zombieID = null;
@@ -181,7 +181,7 @@ const SpinContainer = () => {
                     dropItems?.length === 2 ||
                     Object.values(winItems).flat().length === 2
                   )
-                    newGame.finishGame = true;
+                    updateGame.finishGame = true;
 
                   updateGame.dropItems = null;
                   curCell.holdItemID = null;
@@ -193,6 +193,9 @@ const SpinContainer = () => {
                       : ItemsAndWeaponsNames.AXES
                   } and killing zombie press 'End of Turn'`,
                 );
+              } else if (curCell.zombieID === 1 && (knife || axes)) {
+                updateGame.rollDisabled = false;
+                alert(`You need use BFG to kill the BOSS, press 'SPIN'`);
               } else {
                 updateGame.rollDisabled = false;
                 alert(`You need roll again, press 'SPIN'`);

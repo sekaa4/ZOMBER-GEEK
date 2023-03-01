@@ -28,7 +28,7 @@ const StateDescription = () => {
           Current find items: <br />
           <strong className={classes["win-items"]}>
             {winItemsArr.map((item) => (
-              <div>*{item}*</div>
+              <div key={item}>*{item}*</div>
             ))}
           </strong>
         </span>

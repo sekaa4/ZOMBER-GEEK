@@ -15,13 +15,31 @@ const ActionContainer = () => {
   const dispatch = useAppDispatch();
   const newGame = structuredClone(game) as StandardGame;
   const { turn, board, currentCharacter, winItems, dropItems } = newGame;
-  const isDisabled = !newGame?.nextCharacter;
+  let isDisabled = true;
   const curCell = board.find(
     (cell) => cell.id === currentCharacter?.currentPositionId,
   ) as FieldCell<number>;
 
   const [action, setAction] = useState<string>("Roll Spin for get action");
   const [countOfTurn, setCountOfTurn] = useState<string | number>(0);
+
+  if (
+    newGame?.nextCharacter &&
+    (currentCharacter?.stage === "fight" ||
+      currentCharacter?.stage === "finish")
+  ) {
+    isDisabled = false;
+  }
+
+  if (
+    !newGame?.nextCharacter &&
+    currentCharacter?.stage === "action" &&
+    (countOfTurn > currentCharacter.countOfTurns ||
+      (currentCharacter.name === CharacterProps.CharacterNameFastest &&
+        countOfTurn >= currentCharacter.countOfTurns))
+  ) {
+    isDisabled = false;
+  }
 
   const setActionHandler = (prop: string) => {
     setAction(prop);
@@ -84,7 +102,7 @@ const ActionContainer = () => {
         nameItem === "BFG" ||
         nameItem === "grenades")
     ) {
-      if (curCell.zombieID) {
+      if (curCell.zombieID && (curCell.zombieID !== 1 || nameItem === "BFG")) {
         const holdItems = curCell.holdItemID;
 
         currentCharacter.weapons[nameItem] -= 1;
@@ -112,6 +130,14 @@ const ActionContainer = () => {
           newGame.dropItems = null;
           curCell.holdItemID = null;
         }
+      } else if (
+        curCell.zombieID &&
+        curCell.zombieID === 1 &&
+        nameItem !== "BFG"
+      ) {
+        newGame.rollDisabled = false;
+        currentCharacter.weapons[nameItem] -= 1;
+        alert(`You need use BFG to kill the BOSS , press 'SPIN'`);
       }
     } else {
       newGame.kindOfItems = null;
