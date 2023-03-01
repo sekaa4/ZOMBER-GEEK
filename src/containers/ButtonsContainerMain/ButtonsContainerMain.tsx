@@ -21,12 +21,6 @@ const ButtonsContainerMain: FC = () => {
     alert("Page in progress");
   };
 
-  const navigateHandlerToHistory = () => {
-    alert("Page in progress");
-  };
-
-  // const navigateHandlerToRules = () => {};
-
   return (
     <div className={classes.container}>
       <div className={classes.buttons}>
@@ -41,8 +35,8 @@ const ButtonsContainerMain: FC = () => {
       </div>
       <div className={classes.buttons}>
         <Button
-          title={MainPage.HISTORY}
-          onClickHandler={navigateHandlerToHistory}
+          title={MainPage.DEVELOPERS}
+          onClickHandler={navigateHandlerToDevelopers}
         />
         <NavLink
           className={classes.nav}
@@ -51,12 +45,6 @@ const ButtonsContainerMain: FC = () => {
         >
           <Button title={MainPage.RULES} classNames={[classes.nav]} />
         </NavLink>
-      </div>
-      <div className={classes.button}>
-        <Button
-          title={MainPage.DEVELOPERS}
-          onClickHandler={navigateHandlerToDevelopers}
-        />
       </div>
     </div>
   );
