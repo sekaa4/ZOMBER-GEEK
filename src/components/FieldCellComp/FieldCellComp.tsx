@@ -6,6 +6,7 @@ import {
   ZombiePhotos,
 } from "../../constants/Photos";
 import zombies from "../../constants/Zombies";
+import { KindOfWinObj } from "../../entities/Game/AbstractGame";
 import ItemsNames from "../../models/ItemsNames.type";
 import classes from "./field-cell.module.scss";
 
@@ -17,6 +18,7 @@ type FieldCellCompProp = {
   isActive: boolean;
   isCellToMove: boolean;
   isFinish: boolean;
+  dropItems: KindOfWinObj[] | null;
 
   clickHandlerCallback: () => void;
 };
@@ -28,6 +30,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
   isActive,
   isCellToMove,
   isFinish,
+  dropItems,
 
   clickHandlerCallback,
 }) => {
@@ -45,6 +48,57 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
         onClick={clickHandlerCallback}
       >
         <img src={flipCard} alt="flip card" className={classes.flipCardImage} />
+      </button>
+    );
+  }
+  if (!flipCell && !charName && zombieId && holdItemId && dropItems) {
+    const currentZombie = zombies.find((item) => item.id === zombieId);
+    return (
+      <button
+        type="button"
+        className={classesNames}
+        onClick={clickHandlerCallback}
+      >
+        <img
+          src={ZombiePhotos[currentZombie!.name]}
+          alt={`${currentZombie!.name} card`}
+          className={classes.zombieItemImage}
+        />
+        {dropItems.map((dropItem) => (
+          <img
+            src={ItemsAndWeaponsPhotos[dropItem]}
+            alt={`${holdItemId} card`}
+            className={classes.miniImage}
+          />
+        ))}
+      </button>
+    );
+  }
+  if (!flipCell && charName && zombieId && holdItemId && dropItems) {
+    const currentZombie = zombies.find((item) => item.id === zombieId);
+    return (
+      <button
+        type="button"
+        className={classesNames}
+        onClick={clickHandlerCallback}
+      >
+        <img
+          src={CharacterPhotos[charName]}
+          alt={`${charName} card`}
+          className={classes.charImage}
+        />
+        <img
+          src={ZombiePhotos[currentZombie!.name]}
+          alt={`${currentZombie!.name} card`}
+          className={classes.zombieItemImage}
+        />
+        {dropItems.map((dropItem) => (
+          <img
+            src={ItemsAndWeaponsPhotos[dropItem]}
+            alt={`${holdItemId} card`}
+            className={classes.miniImage}
+          />
+        ))}
       </button>
     );
   }

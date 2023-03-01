@@ -62,3 +62,20 @@ $flipCardSize: 85%;
   width: $flipCardSize;
   border-radius: 1rem;
 }
+
+.miniImage {
+  display: block;
+  height: 3.5vh;
+  top: 0;
+  width: auto;
+  z-index: 1;
+  border: 1px solid white;
+  border-radius: 1rem;
+  &:active {
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    height: 14vh;
+    z-index: 2;
+  }
+}

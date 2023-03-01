@@ -34,10 +34,22 @@ const CharacterDetails: FC = () => {
           <ul>
             Character items:
             {Object.entries(character.items).map(([key, value]) => {
-              let disabled = true;
+              let disabled = false;
               const classesArr = [classes["items-button"]];
-              if (key === "boards") return <li key={key} />;
-              if (value > 0) disabled = false;
+              if (key === "boards") {
+                return <li key={key} />;
+              }
+              if (
+                (newGame.rollDisabled &&
+                  character.stage !== "finish" &&
+                  character.stage !== "action") ||
+                value <= 0
+              ) {
+                disabled = true;
+              }
+              if (value > 0) {
+                classesArr.push(classes.default);
+              }
               if (key !== "firstAidKits") {
                 classesArr.push(classes["win-items"]);
               }

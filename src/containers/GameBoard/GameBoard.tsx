@@ -59,8 +59,8 @@ const GameBoard: FC = () => {
     const winItemsNamesOwners = Object.keys(winItems);
 
     // sorts the arrays to see if they are equal
-    winCellsCharNames.sort((a: any, b: any) => a - b);
-    winItemsNamesOwners.sort((a: any, b: any) => a - b);
+    winCellsCharNames.sort((a: string, b: string) => (a > b ? 1 : -1));
+    winItemsNamesOwners.sort((a: string, b: string) => (a > b ? 1 : -1));
 
     return (
       JSON.stringify(winCellsCharNames) ===

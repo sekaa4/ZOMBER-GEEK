@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RollSpin from "../../components/rollSpin/RollSpin";
+import { KindOfWinObj } from "../../entities/Game/AbstractGame";
 import StandardGame from "../../entities/Game/StandardGame";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { Character } from "../../models/Character.type";
@@ -101,6 +102,7 @@ const SpinContainer = () => {
           stage === "fight"
         ) {
           curCharacter.countOfTurns = 0;
+          const holdItems = curCell.holdItemID;
           switch (res[1]) {
             case "teeth": {
               curCharacter.health = health > 0 ? health - 1 : 0;
@@ -109,8 +111,23 @@ const SpinContainer = () => {
 
               if (!curCharacter.health) {
                 curCharacter.stage = "death";
-                curCell.characterName = null;
                 updateGame.countLifeCharacters -= 1;
+
+                if (updateGame.winItems[curCharacter.name]) {
+                  curCharacter.items[ItemsAndWeaponsNames.GASOLINE] = 0;
+                  curCharacter.items[ItemsAndWeaponsNames.KEYS] = 0;
+                  curCell.holdItemID = ItemsAndWeaponsNames.GASOLINE;
+                  const { dropItems } = updateGame;
+                  const curDropItems = updateGame.winItems[
+                    curCharacter.name
+                  ] as KindOfWinObj[];
+                  updateGame.dropItems = dropItems
+                    ? [...dropItems, ...curDropItems]
+                    : curDropItems;
+
+                  delete updateGame.winItems[curCharacter.name];
+                  updateGame.finishGame = false;
+                }
 
                 if (!updateGame.countLifeCharacters) {
                   updateGame.finishGame = true;
@@ -123,6 +140,8 @@ const SpinContainer = () => {
                   );
                   alert("You died, press 'End of Turn'");
                 }
+
+                curCell.characterName = null;
               } else {
                 updateGame.nextCharacter = false;
                 updateGame.rollDisabled = false;
@@ -148,6 +167,25 @@ const SpinContainer = () => {
                 updateGame.nextCharacter = true;
                 curCell.zombieID = null;
                 curCell.flipCell = true;
+                if (holdItems) {
+                  const { dropItems, winItems } = updateGame;
+                  dropItems!.forEach((holdItemId) => {
+                    curCharacter.items[holdItemId] += 1;
+                  });
+                  const winItemsCharacter = winItems[curCharacter.name];
+
+                  winItems[curCharacter.name] = winItemsCharacter
+                    ? [...winItemsCharacter, ...dropItems!]
+                    : winItemsCharacter;
+                  if (
+                    dropItems?.length === 2 ||
+                    Object.values(winItems).flat().length === 2
+                  )
+                    newGame.finishGame = true;
+
+                  updateGame.dropItems = null;
+                  curCell.holdItemID = null;
+                }
                 alert(
                   `You use ${
                     knife

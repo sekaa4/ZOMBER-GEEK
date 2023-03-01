@@ -14,7 +14,7 @@ const ActionContainer = () => {
   const { game } = useAppSelector((state) => state.gameReducer);
   const dispatch = useAppDispatch();
   const newGame = structuredClone(game) as StandardGame;
-  const { turn, board, currentCharacter, winItems } = newGame;
+  const { turn, board, currentCharacter, winItems, dropItems } = newGame;
   const isDisabled = !newGame?.nextCharacter;
   const curCell = board.find(
     (cell) => cell.id === currentCharacter?.currentPositionId,
@@ -85,6 +85,8 @@ const ActionContainer = () => {
         nameItem === "grenades")
     ) {
       if (curCell.zombieID) {
+        const holdItems = curCell.holdItemID;
+
         currentCharacter.weapons[nameItem] -= 1;
         currentCharacter.stage = "finish";
         newGame.nextCharacter = true;
@@ -93,6 +95,23 @@ const ActionContainer = () => {
         curCell.zombieID = null;
         curCell.flipCell = true;
         button.disabled = true;
+
+        if (holdItems) {
+          dropItems!.forEach((holdItemId) => {
+            currentCharacter.items[holdItemId] += 1;
+          });
+          const winItemsCharacter = winItems[currentCharacter.name];
+          winItems[currentCharacter.name] = winItemsCharacter
+            ? [...winItemsCharacter, ...dropItems!]
+            : dropItems!;
+          if (
+            dropItems?.length === 2 ||
+            Object.values(winItems).flat().length === 2
+          )
+            newGame.finishGame = true;
+          newGame.dropItems = null;
+          curCell.holdItemID = null;
+        }
       }
     } else {
       newGame.kindOfItems = null;
