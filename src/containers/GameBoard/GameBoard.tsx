@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FieldCellContainer from "../Field-cell/FieldCell";
 import StandardGame from "../../entities/Game/StandardGame";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
@@ -9,6 +10,7 @@ import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
 import WinCells from "../../constants/WinCells";
 import { WinItemsObj } from "../../entities/Game/AbstractGame";
 import FieldCell from "../../models/FieldCell.type";
+import Pages from "../../models/Pages";
 
 const GameBoard: FC = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +20,7 @@ const GameBoard: FC = () => {
 
   const activeCell = newGame.board.find((item) => item.active === true) || null;
   const [cellsToMove, setCellsToMove] = useState<(number | "")[]>([]);
+  const navigate = useNavigate();
 
   if (!game?.currentCharacter?.currentPositionId && cellsToMove.length === 0) {
     setCellsToMove([121, 122, 133, 134]);
@@ -25,9 +28,19 @@ const GameBoard: FC = () => {
 
   // checking functions for winning
   const [hasAllThingsForFinish, setAllThingsValue] = useState(false);
+  const [isEmptyWinCells, setEmptyWinCells] = useState(false);
   const hasGasolineAndKeys = (winItems: WinItemsObj) => {
     const items = Object.values(winItems).flat();
     return items.includes("gasoline") && items.includes("keys");
+  };
+  const hasWinCellsCards = (
+    fieldCellsArr: FieldCell<number>[],
+    winCellsNumbers: number[],
+  ) => {
+    const winCells = fieldCellsArr.filter((item) =>
+      winCellsNumbers.includes(item.id),
+    );
+    return winCells.some((item) => item.zombieID || item.holdItemID);
   };
   const hasWinCellsAllCharsWithThings = (
     winCellsNumbers: number[],
@@ -50,8 +63,8 @@ const GameBoard: FC = () => {
     winItemsNamesOwners.sort((a: any, b: any) => a - b);
 
     return (
-      winCellsCharNames.toString() === winItemsNamesOwners.toString() &&
-      hasGasolineAndKeys(winItems)
+      JSON.stringify(winCellsCharNames) ===
+        JSON.stringify(winItemsNamesOwners) && hasGasolineAndKeys(winItems)
     );
   };
 
@@ -108,13 +121,18 @@ const GameBoard: FC = () => {
       setAllThingsValue(true);
     }
     if (hasWinCellsAllCharsWithThings(WinCells, game!.winItems, fieldCells)) {
-      alert("You Win");
+      if (hasWinCellsCards(fieldCells, WinCells) && !isEmptyWinCells) {
+        alert("Kill all zombies and pick up all things on win cells");
+        setEmptyWinCells(true);
+      } else if (!hasWinCellsCards(fieldCells, WinCells)) {
+        alert("You Win");
+        navigate(Pages.main);
+      }
     }
   }, [
     game?.currentCharacter?.currentPositionId,
     game?.currentCharacter?.stage,
   ]);
-
   return (
     <div className={classes.gameField}>
       {fieldCells.map((item) => (
@@ -122,7 +140,9 @@ const GameBoard: FC = () => {
           cell={item}
           isActive={activeCell ? item.id === activeCell.id : false}
           isCellToMove={cellsToMove.includes(item.id)}
-          isFinishCell={WinCells.includes(item.id)}
+          isFinishCell={
+            WinCells.includes(item.id) && hasGasolineAndKeys(game!.winItems)
+          }
           charName={item.characterName}
           setCellsToMoveArray={setCellsToMove}
           key={`cellID: ${item.id}`}
