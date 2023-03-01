@@ -16,8 +16,8 @@ type FieldCellProp = {
   cell: FieldCell<number>;
   isActive: boolean;
   isCellToMove: boolean;
+  isFinishCell: boolean;
   charName: string | null;
-  changeActiveCellID: (cellID: number) => void;
   setCellsToMoveArray: (arr: (number | "")[]) => void;
 };
 const directionsValues: Directions[] = ["left", "right", "top", "bottom"];
@@ -26,8 +26,8 @@ const FieldCellContainer: FC<FieldCellProp> = ({
   cell,
   isActive,
   isCellToMove,
+  isFinishCell,
   charName,
-  changeActiveCellID,
   setCellsToMoveArray,
 }) => {
   const dispatch = useAppDispatch();
@@ -174,6 +174,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
       holdItemId={cell.holdItemID}
       isActive={isActive}
       isCellToMove={isCellToMove}
+      isFinish={isFinishCell}
       clickHandlerCallback={clickHandler}
     />
   );

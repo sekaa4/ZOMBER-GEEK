@@ -16,6 +16,8 @@ type FieldCellCompProp = {
   holdItemId: ItemsNames | null;
   isActive: boolean;
   isCellToMove: boolean;
+  isFinish: boolean;
+
   clickHandlerCallback: () => void;
 };
 const FieldCellComp: FC<FieldCellCompProp> = ({
@@ -25,6 +27,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
   holdItemId,
   isActive,
   isCellToMove,
+  isFinish,
 
   clickHandlerCallback,
 }) => {
@@ -32,6 +35,7 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
     classes.fieldCell,
     isActive ? classes.fieldCellActive : "",
     isCellToMove ? classes.fieldCellToMove : "",
+    isFinish ? classes.fieldCellFinish : "",
   ].join(" ");
   if (flipCell && (zombieId || holdItemId)) {
     return (
