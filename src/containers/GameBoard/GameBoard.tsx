@@ -6,6 +6,9 @@ import { gameSlice } from "../../store/reducers/GameSlice";
 import classes from "./GameBoard.module.scss";
 import { Character } from "../../models/Character.type";
 import ItemsAndWeaponsNames from "../../models/ItemsAndWeaponsNames";
+import WinCells from "../../constants/WinCells";
+import { WinItemsObj } from "../../entities/Game/AbstractGame";
+import FieldCell from "../../models/FieldCell.type";
 
 const GameBoard: FC = () => {
   const dispatch = useAppDispatch();
@@ -15,11 +18,42 @@ const GameBoard: FC = () => {
 
   const activeCell = newGame.board.find((item) => item.active === true) || null;
   const [cellsToMove, setCellsToMove] = useState<(number | "")[]>([]);
-  const changeActiveCell = () => {};
 
   if (!game?.currentCharacter?.currentPositionId && cellsToMove.length === 0) {
     setCellsToMove([121, 122, 133, 134]);
   }
+
+  // checking functions for winning
+  const [hasAllThingsForFinish, setAllThingsValue] = useState(false);
+  const hasGasolineAndKeys = (winItems: WinItemsObj) => {
+    const items = Object.values(winItems).flat();
+    return items.includes("gasoline") && items.includes("keys");
+  };
+  const hasWinCellsAllCharsWithThings = (
+    winCellsNumbers: number[],
+    winItems: WinItemsObj,
+    fieldCellsArr: FieldCell<number>[],
+  ) => {
+    const winCells = fieldCellsArr.filter((item) =>
+      winCellsNumbers.includes(item.id),
+    );
+    const winCellsCharNames = winCells.reduce((accum: string[], item) => {
+      if (item.characterName) {
+        accum.push(item.characterName);
+      }
+      return accum;
+    }, []);
+    const winItemsNamesOwners = Object.keys(winItems);
+
+    // sorts the arrays to see if they are equal
+    winCellsCharNames.sort((a: any, b: any) => a - b);
+    winItemsNamesOwners.sort((a: any, b: any) => a - b);
+
+    return (
+      winCellsCharNames.toString() === winItemsNamesOwners.toString() &&
+      hasGasolineAndKeys(winItems)
+    );
+  };
 
   useEffect(() => {
     const currentCharacter = game?.currentCharacter as Character;
@@ -67,6 +101,15 @@ const GameBoard: FC = () => {
       newGame.nextCharacter = true;
       dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
     }
+    if (hasGasolineAndKeys(game!.winItems) && !hasAllThingsForFinish) {
+      alert(
+        "YOU CHARACTERS HAVES GASOLINE AND KEYS, GO TO RED CAR, NOOOOOOOOOOOOOOOW!",
+      );
+      setAllThingsValue(true);
+    }
+    if (hasWinCellsAllCharsWithThings(WinCells, game!.winItems, fieldCells)) {
+      alert("You Win");
+    }
   }, [
     game?.currentCharacter?.currentPositionId,
     game?.currentCharacter?.stage,
@@ -79,8 +122,8 @@ const GameBoard: FC = () => {
           cell={item}
           isActive={activeCell ? item.id === activeCell.id : false}
           isCellToMove={cellsToMove.includes(item.id)}
+          isFinishCell={WinCells.includes(item.id)}
           charName={item.characterName}
-          changeActiveCellID={changeActiveCell}
           setCellsToMoveArray={setCellsToMove}
           key={`cellID: ${item.id}`}
         />
