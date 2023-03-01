@@ -38,31 +38,13 @@ const FieldCellComp: FC<FieldCellCompProp> = ({
     isFinish ? classes.fieldCellFinish : "",
   ].join(" ");
   if (flipCell && (zombieId || holdItemId)) {
-    // return (
-    //   <button
-    //     type="button"
-    //     className={classesNames}
-    //     onClick={clickHandlerCallback}
-    //   >
-    //     <img src={flipCard} alt="flip card" className={classes.flipCardImage} />
-    //   </button>
-    // );
-    const currentZombie = zombies.find((item) => item.id === zombieId);
     return (
       <button
         type="button"
         className={classesNames}
         onClick={clickHandlerCallback}
       >
-        <img
-          src={
-            holdItemId
-              ? ItemsAndWeaponsPhotos[holdItemId]
-              : ZombiePhotos[currentZombie!.name]
-          }
-          alt={`${holdItemId} card`}
-          className={classes.zombieItemImage}
-        />
+        <img src={flipCard} alt="flip card" className={classes.flipCardImage} />
       </button>
     );
   }
