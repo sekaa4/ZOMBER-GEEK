@@ -59,15 +59,20 @@ const CharacterDetails: FC = () => {
             {Object.entries(character.weapons).map(([key, value]) => {
               let disabled = true;
               const classesArr = [classes["items-button"]];
+              if (value > 0 && disabled) {
+                classesArr.push(classes.default);
+              }
               if (
                 value > 0 &&
                 character.stage === "fight" &&
+                !newGame.rollDisabled &&
                 key === "grenades"
               )
                 disabled = false;
               if (
                 value > 0 &&
-                character.stage === "fight" &&
+                newGame.kindOfItems === "melee" &&
+                (character.stage === "fight" || character.stage === "finish") &&
                 (key === "knifes" || key === "axes")
               )
                 disabled = false;
@@ -75,6 +80,7 @@ const CharacterDetails: FC = () => {
                 value > 0 &&
                 character.stage === "fight" &&
                 newGame.kindOfItems === "firearm" &&
+                !newGame.rollDisabled &&
                 key !== "knifes" &&
                 key !== "axes"
               )

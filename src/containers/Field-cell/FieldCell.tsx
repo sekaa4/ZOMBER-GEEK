@@ -83,7 +83,7 @@ const FieldCellContainer: FC<FieldCellProp> = ({
       curCell.active = true;
 
       // if we choose first position
-      if (stage === "prepare" && !positionId) {
+      if ((!positionId && stage === "prepare") || stage === "roll") {
         newGame!.currentCharacter!.stage = "roll";
         newGame!.rollDisabled = false;
         setCellsToMoveArray([]);

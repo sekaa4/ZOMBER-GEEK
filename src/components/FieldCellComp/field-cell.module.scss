@@ -26,6 +26,7 @@
   width: auto;
   z-index: 1;
   border: 1px solid white;
+  border-radius: 1rem;
   &:active {
     top: 50%;
     left: 50%;
@@ -42,6 +43,7 @@
   width: auto;
   z-index: 1;
   border: 1px solid white;
+  border-radius: 1rem;
   &:active {
     top: 50%;
     right: 50%;
@@ -58,4 +60,5 @@ $flipCardSize: 85%;
   transform: translate(-50%, -50%);
   height: $flipCardSize;
   width: $flipCardSize;
+  border-radius: 1rem;
 }

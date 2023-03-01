@@ -78,9 +78,8 @@ const GameBoard: FC = () => {
 
     if (!numb) {
       setTimeout(() => {
-        newGame.rollDisabled = true;
         alert(`Place ${name} on the board `);
-      }, 1000);
+      }, 650);
     }
     if (
       numb &&

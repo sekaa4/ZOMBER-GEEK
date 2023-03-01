@@ -46,10 +46,11 @@ const ActionContainer = () => {
         currentCharacter.stage === "death" ? "death" : "roll";
       nextCharacter.active = true;
       nextCharacter.stage = "roll";
+      newGame.rollDisabled = !nextCharacter.currentPositionId;
 
       newGame.currentCharacter = nextCharacter;
       newGame.nextCharacter = false;
-      newGame.rollDisabled = false;
+      newGame.kindOfItems = null;
 
       // change active cell to current char
       newGame.board.forEach((cell) => {

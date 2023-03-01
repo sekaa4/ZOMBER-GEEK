@@ -46,3 +46,8 @@
   pointer-events: none;
   cursor: default;
 }
+
+.default:disabled {
+  background-color: var(--color-hovered);
+  border-color: var(--color-hovered);
+}
