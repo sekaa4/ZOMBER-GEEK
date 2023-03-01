@@ -47,7 +47,7 @@ const SpinContainer = () => {
     dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
 
     const min = 4;
-    const max = 15;
+    const max = 22;
 
     const randomNum = randomNumber(min, max);
     res = randomAction(actionsArr);
@@ -66,7 +66,7 @@ const SpinContainer = () => {
         break;
       }
       case 4: {
-        deg = 360 * randomNumber(min, max) - 5;
+        deg = 360 * randomNum - 5;
         break;
       }
       default:
@@ -193,7 +193,7 @@ const SpinContainer = () => {
                       : ItemsAndWeaponsNames.AXES
                   } and killing zombie press 'End of Turn'`,
                 );
-              } else if (curCell.zombieID !== 1) {
+              } else if (curCell.zombieID === 1 && (knife || axes)) {
                 updateGame.rollDisabled = false;
                 alert(`You need use BFG to kill the BOSS, press 'SPIN'`);
               } else {
