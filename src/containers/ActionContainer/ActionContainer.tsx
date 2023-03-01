@@ -26,7 +26,8 @@ const ActionContainer = () => {
   if (
     newGame?.nextCharacter &&
     (currentCharacter?.stage === "fight" ||
-      currentCharacter?.stage === "finish")
+      currentCharacter?.stage === "finish" ||
+      currentCharacter?.stage === "death")
   ) {
     isDisabled = false;
   }
