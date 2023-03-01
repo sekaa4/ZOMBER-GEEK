@@ -176,7 +176,7 @@ const SpinContainer = () => {
 
                   winItems[curCharacter.name] = winItemsCharacter
                     ? [...winItemsCharacter, ...dropItems!]
-                    : winItemsCharacter;
+                    : dropItems!;
                   if (
                     dropItems?.length === 2 ||
                     Object.values(winItems).flat().length === 2
