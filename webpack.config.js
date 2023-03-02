@@ -23,6 +23,7 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",
+      favicon: './src/assets/icons/favicon.png',
     }),
     new MiniCssExtractPlugin({
       filename: "css/[name].[contenthash:8].css",

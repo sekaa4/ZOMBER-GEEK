@@ -16,9 +16,9 @@ import delayTime from "./constants";
 const actionsArr = [
   [1, "teeth"],
   [2, "runner"],
-  [3, "melee weapon"],
-  [4, "firearm"],
+  [3, "crossed swords"],
   [1, "teeth"],
+  [4, "crosshairs"],
   [2, "runner"],
 ];
 
@@ -47,26 +47,30 @@ const SpinContainer = () => {
     dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
 
     const min = 4;
-    const max = 18;
+    const max = 15;
 
     const randomNum = randomNumber(min, max);
     res = randomAction(actionsArr);
 
     switch (res[0]) {
       case 1: {
-        deg = 360 * randomNum + 82;
+        const curDeg = 360 * randomNum + 82;
+        deg = curDeg === rotate ? 360 * randomNumber(min, max) + 82 : curDeg;
         break;
       }
       case 2: {
-        deg = 360 * randomNum + 260;
+        const curDeg = 360 * randomNum + 260;
+        deg = curDeg === rotate ? 360 * randomNumber(min, max) + 260 : curDeg;
         break;
       }
       case 3: {
-        deg = 360 * randomNum + 170;
+        const curDeg = 360 * randomNum + 170;
+        deg = curDeg === rotate ? 360 * randomNumber(min, max) + 170 : curDeg;
         break;
       }
       case 4: {
-        deg = 360 * randomNum - 5;
+        const curDeg = 360 * randomNum - 5;
+        deg = curDeg === rotate ? 360 * randomNumber(min, max) - 5 : curDeg;
         break;
       }
       default:
@@ -157,7 +161,7 @@ const SpinContainer = () => {
               );
               break;
             }
-            case "melee weapon": {
+            case "crossed swords": {
               const knife = weapons[ItemsAndWeaponsNames.KNIFES];
               const axes = weapons[ItemsAndWeaponsNames.AXES];
               updateGame.kindOfItems = "melee";
@@ -203,7 +207,7 @@ const SpinContainer = () => {
 
               break;
             }
-            case "firearm": {
+            case "crosshairs": {
               const crossbows = weapons[ItemsAndWeaponsNames.CROSSBOWS];
               const handguns = weapons[ItemsAndWeaponsNames.HANDGUNS];
               const assaultRifles = weapons[ItemsAndWeaponsNames.ASSAULTRIFLES];
@@ -211,9 +215,9 @@ const SpinContainer = () => {
               const BFG = weapons[ItemsAndWeaponsNames.BFG];
               if (crossbows || handguns || assaultRifles || shotguns || BFG) {
                 alert(
-                  `You can use "firearm" and killing zombie or press 'SPIN'`,
+                  `You can use "crosshairs" and killing zombie or press 'SPIN'`,
                 );
-                updateGame.kindOfItems = "firearm";
+                updateGame.kindOfItems = "crosshairs";
                 updateGame.rollDisabled = false;
               } else {
                 updateGame.rollDisabled = false;

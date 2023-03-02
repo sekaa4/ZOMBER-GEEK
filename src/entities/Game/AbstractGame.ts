@@ -2,7 +2,7 @@ import { Character, CharacterName, Chars } from "../../models/Character.type";
 import FieldCell from "../../models/FieldCell.type";
 import ZombieObj from "../../models/Zombie.type";
 
-export type KindOfItems = "melee" | "firearm";
+export type KindOfItems = "melee" | "crosshairs";
 export type KindOfWinObj = "gasoline" | "keys";
 
 export type WinItemsObj = Partial<Record<CharacterName, KindOfWinObj[]>>;
