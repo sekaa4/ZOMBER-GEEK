@@ -5,7 +5,7 @@ const enum ConstantsString {
   USER_API = "userAPI",
   USER = "User",
   ID = "id",
-  RULES_URL = "https://drive.google.com/file/d/1NjzC8_O9flX6-dDlmmr8Vi1oWXktBBR2/view?usp=sharing",
+  RULES_URL = "https://drive.google.com/file/d/1ZWA1UYWhvm1AeqtDJdGQ27ojgHTsOZ1_/view",
 }
 
 export default ConstantsString;
