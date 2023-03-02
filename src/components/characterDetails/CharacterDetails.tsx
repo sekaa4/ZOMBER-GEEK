@@ -91,7 +91,7 @@ const CharacterDetails: FC = () => {
               if (
                 value > 0 &&
                 character.stage === "fight" &&
-                newGame.kindOfItems === "firearm" &&
+                newGame.kindOfItems === "crosshairs" &&
                 !newGame.rollDisabled &&
                 key !== "knifes" &&
                 key !== "axes"

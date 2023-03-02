@@ -16,9 +16,9 @@ import delayTime from "./constants";
 const actionsArr = [
   [1, "teeth"],
   [2, "runner"],
-  [3, "melee weapon"],
-  [4, "firearm"],
+  [3, "crossed swords"],
   [1, "teeth"],
+  [4, "crosshairs"],
   [2, "runner"],
 ];
 
@@ -161,7 +161,7 @@ const SpinContainer = () => {
               );
               break;
             }
-            case "melee weapon": {
+            case "crossed swords": {
               const knife = weapons[ItemsAndWeaponsNames.KNIFES];
               const axes = weapons[ItemsAndWeaponsNames.AXES];
               updateGame.kindOfItems = "melee";
@@ -207,7 +207,7 @@ const SpinContainer = () => {
 
               break;
             }
-            case "firearm": {
+            case "crosshairs": {
               const crossbows = weapons[ItemsAndWeaponsNames.CROSSBOWS];
               const handguns = weapons[ItemsAndWeaponsNames.HANDGUNS];
               const assaultRifles = weapons[ItemsAndWeaponsNames.ASSAULTRIFLES];
@@ -215,9 +215,9 @@ const SpinContainer = () => {
               const BFG = weapons[ItemsAndWeaponsNames.BFG];
               if (crossbows || handguns || assaultRifles || shotguns || BFG) {
                 alert(
-                  `You can use "firearm" and killing zombie or press 'SPIN'`,
+                  `You can use "crosshairs" and killing zombie or press 'SPIN'`,
                 );
-                updateGame.kindOfItems = "firearm";
+                updateGame.kindOfItems = "crosshairs";
                 updateGame.rollDisabled = false;
               } else {
                 updateGame.rollDisabled = false;
