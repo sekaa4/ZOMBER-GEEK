@@ -47,26 +47,30 @@ const SpinContainer = () => {
     dispatch(gameSlice.actions.writeGameState(newGame as StandardGame));
 
     const min = 4;
-    const max = 18;
+    const max = 15;
 
     const randomNum = randomNumber(min, max);
     res = randomAction(actionsArr);
 
     switch (res[0]) {
       case 1: {
-        deg = 360 * randomNum + 82;
+        const curDeg = 360 * randomNum + 82;
+        deg = curDeg === rotate ? 360 * randomNumber(min, max) + 82 : curDeg;
         break;
       }
       case 2: {
-        deg = 360 * randomNum + 260;
+        const curDeg = 360 * randomNum + 260;
+        deg = curDeg === rotate ? 360 * randomNumber(min, max) + 260 : curDeg;
         break;
       }
       case 3: {
-        deg = 360 * randomNum + 170;
+        const curDeg = 360 * randomNum + 170;
+        deg = curDeg === rotate ? 360 * randomNumber(min, max) + 170 : curDeg;
         break;
       }
       case 4: {
-        deg = 360 * randomNum - 5;
+        const curDeg = 360 * randomNum - 5;
+        deg = curDeg === rotate ? 360 * randomNumber(min, max) - 5 : curDeg;
         break;
       }
       default:

@@ -22,7 +22,12 @@ const RollSpin = (props: RollSpinProps) => {
         spin
       </button>
       <span className={cls.arrow} />
-      <div className={cls.box} style={{ transform: `rotate(${rotate}deg)` }} />
+      <div className={cls["container-spinner"]}>
+        <div
+          className={cls.box}
+          style={{ transform: `rotate(${rotate}deg)` }}
+        />
+      </div>
     </div>
   );
 };
