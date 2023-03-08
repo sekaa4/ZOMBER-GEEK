@@ -1,0 +1,24 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  > * {
+    cursor: pointer;
+  }
+}
+
+.label-line {
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  cursor: pointer;
+  > * {
+    cursor: pointer;
+  }
+}
+
+.title {
+  width: 5rem;
+  text-align: center;
+}

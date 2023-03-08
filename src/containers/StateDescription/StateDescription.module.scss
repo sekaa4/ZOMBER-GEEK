@@ -1,0 +1,24 @@
+@import "../../assets/styles/abstract/mixins";
+
+.state-description {
+  display: flex;
+  flex-direction: column;
+  @include media-tablet {
+    font-size: 1.2rem;
+  }
+}
+
+.need-items {
+  line-height: 1.5;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.end-turn {
+  margin-top: auto;
+}
+
+.win-items {
+  margin-top: 1rem;
+  color: green;
+}

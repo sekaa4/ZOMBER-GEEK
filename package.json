@@ -1,0 +1,67 @@
+{
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "main": "index.ts",
+  "scripts": {
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development --node-env=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve --node-env=development",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prettier": "npx prettier --write ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sekaa4/ZOMBER-GEEK.git"
+  },
+  "keywords": [
+    "Zombee",
+    "game"
+  ],
+  "author": "sekaa4, SergeyIankowski, ImmelstronDev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sekaa4/ZOMBER-GEEK/issues"
+  },
+  "homepage": "https://github.com/sekaa4/ZOMBER-GEEK#readme",
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "@webpack-cli/generators": "^3.0.1",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.3",
+    "eslint": "^8.33.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "netlify-webpack-plugin": "^1.1.3",
+    "prettier": "^2.8.3",
+    "sass": "^1.57.1",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
+    "@types/react-redux": "^7.1.25",
+    "eslint-config-airbnb": "^19.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.8.1"
+  }
+}

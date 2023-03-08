@@ -1,0 +1,17 @@
+.select-button {
+  display: none;
+  width: 80%;
+  margin: 3rem auto 0;
+  line-height: 1.2rem;
+  height: 3.5rem;
+}
+.visible {
+  display: block;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  position: relative;
+}
